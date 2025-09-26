@@ -1,20 +1,66 @@
 package com.example.madd_assignment_01
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var startWorkoutButton: Button
+    private lateinit var trackDietButton: Button
+    private lateinit var viewGoalsButton: Button
+
+    companion object {
+        private const val TAG = "MainActivity"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        Log.d(TAG, "onCreate called")
+
+        try {
+            setContentView(R.layout.activity_main)
+            initializeViews()
+            setupClickListeners()
+            Log.d(TAG, "MainActivity initialized successfully")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error in onCreate: ${e.message}", e)
+            Toast.makeText(this, "Error loading main page", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun initializeViews() {
+        try {
+            startWorkoutButton = findViewById(R.id.start_workout_button)
+            trackDietButton = findViewById(R.id.track_diet_button)
+            viewGoalsButton = findViewById(R.id.view_goals_button)
+            Log.d(TAG, "All views initialized successfully")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error initializing views: ${e.message}", e)
+            throw e
+        }
+    }
+
+    private fun setupClickListeners() {
+        startWorkoutButton.setOnClickListener {
+            Log.d(TAG, "Start Workout button clicked")
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
+
+        trackDietButton.setOnClickListener {
+            Log.d(TAG, "Track Diet button clicked")
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewGoalsButton.setOnClickListener {
+            Log.d(TAG, "View Goals button clicked")
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
         }
     }
 }

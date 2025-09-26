@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/onboarding_background"
+    tools:context=".SignUpActivity">
+
+        <!-- Heart Icon -->
+        <ImageView
+            android:id="@+id/heart_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/heart_pulse_blue"
+            android:tint="@color/primary_blue"
+            android:contentDescription="Heart Icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Create Account"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintTop_toBottomOf="@+id/heart_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Start your fitness journey with us"
+            android:textColor="@color/onboarding_text_secondary"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Full Name Input -->
+        <TextView
+            android:id="@+id/full_name_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="32dp"
+            android:text="Full Name"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            app:layout_constraintTop_toBottomOf="@+id/subtitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/full_name_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/input_field_background"
+            android:hint="John Doe"
+            android:textColorHint="@color/onboarding_text_secondary"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:inputType="textPersonName|textCapWords"
+            android:fontFamily="sans-serif"
+            app:layout_constraintTop_toBottomOf="@+id/full_name_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Email Input -->
+        <TextView
+            android:id="@+id/email_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:text="Email"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            app:layout_constraintTop_toBottomOf="@+id/full_name_edit_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/input_field_background"
+            android:hint="your.email@example.com"
+            android:textColorHint="@color/onboarding_text_secondary"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="16sp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:inputType="textEmailAddress"
+            android:fontFamily="sans-serif"
+            app:layout_constraintTop_toBottomOf="@+id/email_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Password Input -->
+        <TextView
+            android:id="@+id/password_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:text="Password"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            app:layout_constraintTop_toBottomOf="@+id/email_edit_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/password_container"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/input_field_background"
+            app:layout_constraintTop_toBottomOf="@+id/password_label"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <EditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:hint="••••••••"
+                android:textColorHint="@color/onboarding_text_secondary"
+                android:textColor="@color/onboarding_text_primary"
+                android:textSize="16sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="48dp"
+                android:inputType="textPassword"
+                android:fontFamily="sans-serif" />
+
+            <ImageView
+                android:id="@+id/password_toggle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_visibility_off"
+                android:tint="@color/onboarding_text_secondary"
+                android:contentDescription="Toggle Password Visibility"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+        </FrameLayout>
+
+        <!-- Continue Button -->
+
+        <Button
+            android:id="@+id/continue_button"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/button_blue_rounded"
+            android:text="Continue"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/password_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Already have account link -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Already have an account? "
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif" />
+
+            <TextView
+                android:id="@+id/log_in_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Log In"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp" />
+
+        </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

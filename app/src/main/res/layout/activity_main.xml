@@ -5,15 +5,139 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/onboarding_background"
     tools:context=".MainActivity">
 
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart_pulse_blue"
+            android:tint="@color/primary_blue"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="App Icon" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="FitBalanceHub"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="sans-serif-medium" />
+
+    </LinearLayout>
+
+    <!-- Welcome Message -->
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Welcome to Your Fitness Journey!"
+        android:textColor="@color/onboarding_text_primary"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintTop_toBottomOf="@+id/header_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/subtitle_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Track workouts, monitor diet, and achieve your goals"
+        android:textColor="@color/onboarding_text_secondary"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Main Action Buttons -->
+    <LinearLayout
+        android:id="@+id/action_buttons_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/subtitle_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/start_workout_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_blue_rounded"
+            android:text="Start Workout"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/track_diet_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_blue_rounded"
+            android:text="Track Diet"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/view_goals_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_blue_rounded"
+            android:text="View Goals"
+            android:textColor="@color/onboarding_text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+    <!-- Footer -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginBottom="24dp"
+        android:text="Your health journey starts here"
+        android:textColor="@color/onboarding_text_secondary"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

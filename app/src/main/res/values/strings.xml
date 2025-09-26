@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">FitBalanceHub</string>
+
+    <!-- Main Activity -->
+    <string name="welcome_message">Welcome to Your Fitness Journey!</string>
+    <string name="subtitle_message">Track workouts, monitor diet, and achieve your goals</string>
+    <string name="footer_message">Your health journey starts here</string>
+    <string name="start_workout">Start Workout</string>
+    <string name="track_diet">Track Diet</string>
+    <string name="view_goals">View Goals</string>
+
+    <!-- Onboarding -->
+    <string name="welcome_title">Welcome to FitBalanceHub</string>
+    <string name="welcome_subtitle">Balance Your Health Journey</string>
+    <string name="track_workouts_title">Track Your Workouts</string>
+    <string name="track_workouts_subtitle">Log and monitor all your physical activities in one place</string>
+    <string name="monitor_diet_title">Monitor Your Diet</string>
+    <string name="monitor_diet_subtitle">Keep track of your meals, calories, and macros to maintain a balanced diet</string>
+    <string name="achieve_goals_title">Set &amp; Achieve Goals</string>
+    <string name="achieve_goals_subtitle">Define your fitness goals and track your progress with personalized insights</string>
+
+    <!-- Authentication -->
+    <string name="create_account">Create Account</string>
+    <string name="start_fitness_journey">Start your fitness journey with us</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="continue_fitness_journey">Log in to continue your fitness journey</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="continue_btn">Continue</string>
+    <string name="log_in">Log In</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+
+    <!-- Common -->
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="get_started">Get Started</string>
 </resources>

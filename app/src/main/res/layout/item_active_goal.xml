@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="#3A4A5A"
+    app:cardElevation="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Goal Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/goal_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lose 5kg"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="4dp">
+
+                    <View
+                        android:id="@+id/goal_category_indicator"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/indicator_active"
+                        android:layout_marginEnd="6dp" />
+
+                    <TextView
+                        android:id="@+id/goal_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight"
+                        android:textColor="@color/onboarding_text_secondary"
+                        android:textSize="12sp"
+                        android:fontFamily="sans-serif" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end">
+
+                <TextView
+                    android:id="@+id/goal_due_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Due Oct 30, 2023"
+                    android:textColor="@color/onboarding_text_secondary"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif" />
+
+                <TextView
+                    android:id="@+id/goal_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="30%"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Current and Target Values -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Current:"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif" />
+
+            <TextView
+                android:id="@+id/goal_current_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="73.5kg"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="20dp"
+                android:text="Target:"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif" />
+
+            <TextView
+                android:id="@+id/goal_target_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="70kg"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/goal_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progress="30"
+            android:progressTint="#FF9500"
+            android:progressBackgroundTint="#2C3E50" />
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/update_progress_button"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:text="Update"
+                android:textColor="@color/primary_blue"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:textAllCaps="false"
+                android:paddingHorizontal="12dp"
+                android:layout_marginEnd="8dp"
+                style="?attr/borderlessButtonStyle" />
+
+            <Button
+                android:id="@+id/complete_goal_button"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@drawable/button_blue_rounded"
+                android:text="Complete"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:textAllCaps="false"
+                android:paddingHorizontal="12dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

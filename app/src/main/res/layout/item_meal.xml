@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="#2C3E50"
+    app:cardElevation="2dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Meal Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/meal_type_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Breakfast"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium" />
+
+                <TextView
+                    android:id="@+id/meal_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="08:30 AM"
+                    android:textColor="@color/onboarding_text_secondary"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/meal_total_calories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="420 kcal"
+                android:textColor="@color/primary_blue"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium" />
+
+        </LinearLayout>
+
+        <!-- Food Items -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/food_items_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginBottom="12dp" />
+
+        <!-- View Details Button -->
+        <LinearLayout
+            android:id="@+id/view_details_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="View Details"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@android:drawable/ic_menu_send"
+                android:tint="@color/onboarding_text_secondary"
+                android:contentDescription="View Details" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

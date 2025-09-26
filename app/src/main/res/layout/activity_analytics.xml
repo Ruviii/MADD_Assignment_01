@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dark_background"
+    android:fitsSystemWindows="true">
+
+    <!-- Header Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:background="@color/primary_blue"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Analytics"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/analytics_settings_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@android:drawable/ic_menu_manage"
+            android:tint="@color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- Main Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Your Progress Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Your Progress"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/time_period_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/input_field_background"
+                    android:paddingHorizontal="12dp" />
+
+            </LinearLayout>
+
+            <!-- Progress Journey -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Your Progress Journey"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/progress_journey_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Workout Activity Chart -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Workout Activity"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:id="@+id/workout_chart_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:orientation="horizontal"
+                        android:gravity="bottom" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Calories Chart -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Calories: Consumed vs. Burned"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:id="@+id/calories_chart_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:orientation="horizontal"
+                        android:gravity="bottom" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Macronutrient Distribution -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Macronutrient Distribution"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Protein -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/protein_percentage_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Protein 30%"
+                            android:textColor="@color/primary_blue"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/protein_progress_bar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="120dp"
+                            android:layout_height="8dp"
+                            android:progress="30"
+                            android:max="100"
+                            android:progressTint="@color/primary_blue" />
+
+                    </LinearLayout>
+
+                    <!-- Carbs -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:id="@+id/carbs_percentage_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Carbs 44%"
+                            android:textColor="@android:color/holo_orange_light"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/carbs_progress_bar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="120dp"
+                            android:layout_height="8dp"
+                            android:progress="44"
+                            android:max="100"
+                            android:progressTint="@android:color/holo_orange_light" />
+
+                    </LinearLayout>
+
+                    <!-- Fat -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/fat_percentage_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Fat 26%"
+                            android:textColor="@android:color/holo_purple"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/fat_progress_bar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="120dp"
+                            android:layout_height="8dp"
+                            android:progress="26"
+                            android:max="100"
+                            android:progressTint="@android:color/holo_purple" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Goal Progress -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/card_background"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Goal Progress"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- Weight Loss -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:id="@+id/weight_loss_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Weight Loss - 68%"
+                            android:textColor="@color/primary_blue"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/weight_loss_progress"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="120dp"
+                            android:layout_height="8dp"
+                            android:progress="68"
+                            android:max="100"
+                            android:progressTint="@color/primary_blue" />
+
+                    </LinearLayout>
+
+                    <!-- Workout Frequency -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:id="@+id/workout_frequency_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Workout Frequency - 40%"
+                            android:textColor="@android:color/holo_orange_light"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/workout_frequency_progress"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="120dp"
+                            android:layout_height="8dp"
+                            android:progress="40"
+                            android:max="100"
+                            android:progressTint="@android:color/holo_orange_light" />
+
+                    </LinearLayout>
+
+                    <!-- Water Intake -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/water_intake_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Water Intake - 85%"
+                            android:textColor="@android:color/holo_green_light"
+                            android:textSize="14sp" />
+
+                        <ProgressBar
+                            android:id="@+id/water_intake_progress"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="120dp"
+                            android:layout_height="8dp"
+                            android:progress="85"
+                            android:max="100"
+                            android:progressTint="@android:color/holo_green_light" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Transformation Tracking -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/transformation_card"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@color/primary_blue"
+                app:cardElevation="4dp"
+                android:foreground="?attr/selectableItemBackground">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center_vertical">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Track Your Transformation"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Upload photos to visualize your progress"
+                            android:textColor="@color/white"
+                            android:textSize="12sp"
+                            android:alpha="0.8"
+                            android:layout_marginBottom="12dp" />
+
+                        <Button
+                            android:id="@+id/upload_photo_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:text="Upload Photo"
+                            android:textColor="@color/primary_blue"
+                            android:background="@color/white"
+                            android:textSize="12sp"
+                            android:paddingHorizontal="16dp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/workout_image"
+                        android:scaleType="centerCrop" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Achievements Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Achievements"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/view_all_achievements"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View All"
+                    android:textColor="@color/primary_blue"
+                    android:textSize="14sp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="4dp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/achievements_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Motivational Message -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardBackgroundColor="@android:color/holo_green_dark"
+                app:cardElevation="4dp">
+
+                <TextView
+                    android:id="@+id/motivational_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="You're on track!\nYou've been consistent with your workouts and nutrition this week."
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:padding="16dp" />
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Navigation -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/dark_background"
+        android:paddingVertical="12dp"
+        android:paddingHorizontal="8dp"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:id="@+id/nav_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_myplaces"
+                android:tint="@color/gray_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_workouts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/workout_icon"
+                android:tint="@color/gray_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workouts"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_diet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/diet_icon"
+                android:tint="@color/gray_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Diet"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_goals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/goals_icon"
+                android:tint="@color/gray_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goals"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_reminders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_popup_reminder"
+                android:tint="@color/gray_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reminders"
+                android:textColor="@color/gray_text"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_analytics"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@android:drawable/ic_menu_view"
+                android:tint="@color/primary_blue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Analytics"
+                android:textColor="@color/primary_blue"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

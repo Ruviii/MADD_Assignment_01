@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@color/card_background"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <!-- Reminder Icon -->
+        <ImageView
+            android:id="@+id/reminder_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/workout_icon"
+            android:tint="@color/primary_blue"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Reminder Details -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/reminder_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Morning Workout"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    android:id="@+id/reminder_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="07:00 AM"
+                    android:textColor="@color/gray_text"
+                    android:textSize="14sp"
+                    android:layout_marginEnd="12dp" />
+
+                <TextView
+                    android:id="@+id/reminder_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mon, Wed, Fri"
+                    android:textColor="@color/gray_text"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Toggle Switch -->
+        <Switch
+            android:id="@+id/reminder_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:checked="true"
+            android:thumbTint="@color/white"
+            android:trackTint="@color/primary_blue" />
+
+        <!-- Delete Button -->
+        <ImageView
+            android:id="@+id/delete_reminder_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:tint="@color/gray_text"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
