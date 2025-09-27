@@ -4,12 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import android.widget.EditText
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.madd_assignment_01.repository.UserRepository
+import kotlinx.coroutines.launch
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -19,7 +24,10 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var passwordToggle: ImageView
     private lateinit var continueButton: Button
     private lateinit var logInLink: TextView
+    private lateinit var progressBar: ProgressBar
     private var isPasswordVisible = false
+
+    private lateinit var userRepository: UserRepository
 
     companion object {
         private const val TAG = "SignUpActivity"
@@ -31,6 +39,10 @@ class SignUpActivity : AppCompatActivity() {
 
         try {
             setContentView(R.layout.activity_sign_up)
+
+            // Initialize user repository
+            userRepository = (application as HealthFitnessApplication).userRepository
+
             initializeViews()
             setupViews()
             setupClickListeners()
@@ -49,6 +61,7 @@ class SignUpActivity : AppCompatActivity() {
             passwordToggle = findViewById(R.id.password_toggle)
             continueButton = findViewById(R.id.continue_button)
             logInLink = findViewById(R.id.log_in_link)
+            progressBar = findViewById(R.id.progress_bar)
             Log.d(TAG, "All views initialized successfully")
         } catch (e: Exception) {
             Log.e(TAG, "Error initializing views: ${e.message}", e)
@@ -88,16 +101,63 @@ class SignUpActivity : AppCompatActivity() {
             return
         }
 
-        // TODO: Implement actual sign up logic with backend/database
-        // For now, show success message and navigate to main app
-        Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
+        // Show loading
+        setLoadingState(true)
 
-        // Navigate to dashboard
-        val intent = Intent(this, DashboardActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        // Perform sign up
+        lifecycleScope.launch {
+            try {
+                val result = userRepository.signUp(email, password, fullName)
+
+                result.onSuccess { user ->
+                    runOnUiThread {
+                        setLoadingState(false)
+                        Toast.makeText(this@SignUpActivity, "Account created successfully!", Toast.LENGTH_SHORT).show()
+
+                        // Navigate to dashboard
+                        val intent = Intent(this@SignUpActivity, DashboardActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    }
+                }.onFailure { error ->
+                    runOnUiThread {
+                        setLoadingState(false)
+                        handleSignUpError(error.message ?: "Sign up failed")
+                    }
+                }
+            } catch (e: Exception) {
+                runOnUiThread {
+                    setLoadingState(false)
+                    handleSignUpError("An unexpected error occurred")
+                    Log.e(TAG, "Sign up error: ${e.message}", e)
+                }
+            }
+        }
+    }
+
+    private fun setLoadingState(loading: Boolean) {
+        progressBar.visibility = if (loading) View.VISIBLE else View.GONE
+        continueButton.isEnabled = !loading
+        continueButton.text = if (loading) "Creating Account..." else "Continue"
+
+        // Disable form inputs during loading
+        fullNameEditText.isEnabled = !loading
+        emailEditText.isEnabled = !loading
+        passwordEditText.isEnabled = !loading
+    }
+
+    private fun handleSignUpError(message: String) {
+        when {
+            message.contains("email", ignoreCase = true) -> {
+                emailEditText.error = message
+                emailEditText.requestFocus()
+            }
+            else -> {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun validateInputs(fullName: String, email: String, password: String): Boolean {

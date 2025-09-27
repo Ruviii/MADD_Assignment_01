@@ -3,13 +3,16 @@ package com.example.madd_assignment_01
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import android.widget.Button
-import android.widget.Toast
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.view.LayoutInflater
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.lifecycleScope
+import com.example.madd_assignment_01.data.DataManager
+import com.example.madd_assignment_01.data.DatabaseDataManager
+import com.example.madd_assignment_01.repository.UserRepository
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,6 +22,7 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var greetingTextView: TextView
     private lateinit var userNameTextView: TextView
     private lateinit var motivationQuoteTextView: TextView
+    private lateinit var settingsButton: ImageView
 
     // Today's Summary views
     private lateinit var caloriesValueTextView: TextView
@@ -53,6 +57,11 @@ class DashboardActivity : AppCompatActivity() {
     private lateinit var remindersNavButton: LinearLayout
     private lateinit var analyticsNavButton: LinearLayout
 
+    // Data Manager
+    private lateinit var dataManager: DataManager
+    private lateinit var databaseDataManager: DatabaseDataManager
+    private lateinit var userRepository: UserRepository
+
     companion object {
         private const val TAG = "DashboardActivity"
     }
@@ -63,6 +72,20 @@ class DashboardActivity : AppCompatActivity() {
 
         try {
             setContentView(R.layout.activity_dashboard)
+
+            // Check if user is logged in
+            userRepository = (application as HealthFitnessApplication).userRepository
+            if (!userRepository.isLoggedIn()) {
+                // Redirect to sign in if not logged in
+                val intent = Intent(this, SignInActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+                return
+            }
+
+            dataManager = DataManager.getInstance(this)
+            databaseDataManager = DatabaseDataManager.getInstance(this)
             initializeViews()
             setupClickListeners()
             updateDashboardData()
@@ -79,6 +102,7 @@ class DashboardActivity : AppCompatActivity() {
             greetingTextView = findViewById(R.id.greeting_text)
             userNameTextView = findViewById(R.id.user_name_text)
             motivationQuoteTextView = findViewById(R.id.motivation_quote)
+            settingsButton = findViewById(R.id.settings_button)
 
             // Today's Summary views
             caloriesValueTextView = findViewById(R.id.calories_value)
@@ -121,6 +145,12 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
+        // Settings button
+        settingsButton.setOnClickListener {
+            Log.d(TAG, "Settings button clicked")
+            showSettingsDialog()
+        }
+
         // Featured workout
         startWorkoutButton.setOnClickListener {
             Log.d(TAG, "Start workout button clicked")
@@ -158,6 +188,12 @@ class DashboardActivity : AppCompatActivity() {
             Log.d(TAG, "Analytics card clicked")
             val intent = Intent(this, AnalyticsActivity::class.java)
             startActivity(intent)
+        }
+
+        // Add long click listener to user name for settings/logout
+        userNameTextView.setOnLongClickListener {
+            showUserMenu()
+            true
         }
 
         // Bottom navigation
@@ -203,32 +239,303 @@ class DashboardActivity : AppCompatActivity() {
         val hour = currentTime.get(Calendar.HOUR_OF_DAY)
 
         val greeting = when (hour) {
-            in 5..11 -> "Good Morning"
+            in 0..11 -> "Good Morning"
             in 12..16 -> "Good Afternoon"
-            else -> "Good Evening"
+            in 17..23 -> "Good Evening"
+            else -> "Good Morning" // fallback
         }
 
         greetingTextView.text = "$greeting,"
-        userNameTextView.text = "Alex" // TODO: Get actual user name
+
+        // Get user name from UserRepository and extract first name only
+        val fullName = userRepository.getCurrentUserName() ?: "User"
+        val firstName = fullName.split(" ").firstOrNull() ?: "User"
+        userNameTextView.text = firstName
+
         motivationQuoteTextView.text = "\"One workout at a time, one meal at a time, one day at a time.\""
 
-        // Update today's summary (using sample data)
-        caloriesValueTextView.text = "1,450"
-        workoutsValueTextView.text = "1"
-        waterValueTextView.text = "6"
+        // Update today's summary with real data
+        val todaysCalories = dataManager.getTodaysCaloriesConsumed()
+        val weeklyWorkoutMinutes = dataManager.getWeeklyWorkoutMinutes()
+        val workoutCount = if (weeklyWorkoutMinutes > 0) weeklyWorkoutMinutes / 30 else 0 // Assuming 30 min average
 
-        // Update progress text
-        weekProgressTextView.text = "Keep pushing! You're 65% towards your weekly goal"
+        caloriesValueTextView.text = todaysCalories.toString()
+        workoutsValueTextView.text = workoutCount.toString()
+        waterValueTextView.text = "6" // TODO: Implement water tracking
 
-        // Update progress percentages (using sample data)
-        weightLossProgressTextView.text = "75%"
-        workoutProgressTextView.text = "40%"
-        waterIntakeProgressTextView.text = "85%"
+        // Calculate weekly progress
+        val weeklyCaloriesBurned = dataManager.getWeeklyCaloriesBurned()
+        val weeklyGoal = 2000 // Example weekly calorie burn goal
+        val weeklyProgress = if (weeklyGoal > 0) (weeklyCaloriesBurned * 100 / weeklyGoal).coerceAtMost(100) else 0
+
+        weekProgressTextView.text = "Keep pushing! You're $weeklyProgress% towards your weekly goal"
+
+        // Update progress with real goal data
+        val activeGoals = dataManager.getActiveGoals()
+        val weightGoal = activeGoals.find { it.category == GoalCategory.WEIGHT }
+        val workoutGoal = activeGoals.find { it.category == GoalCategory.ACTIVITY }
+        val hydrationGoal = activeGoals.find { it.category == GoalCategory.HYDRATION }
+
+        weightLossProgressTextView.text = "${weightGoal?.progressPercentage ?: 0}%"
+        workoutProgressTextView.text = "${workoutGoal?.progressPercentage ?: 0}%"
+        waterIntakeProgressTextView.text = "${hydrationGoal?.progressPercentage ?: 85}%"
 
         // Update featured workout
         featuredWorkoutTitleTextView.text = "Today's Featured Workout"
-        featuredWorkoutDescTextView.text = "30-min HIIT Session: Burn 300+ calories"
+        val featuredWorkouts = listOf(
+            "30-min HIIT Session: Burn 300+ calories",
+            "45-min Strength Training: Build muscle",
+            "60-min Yoga Flow: Improve flexibility",
+            "20-min Core Blast: Strengthen your core"
+        )
+        val randomWorkout = featuredWorkouts.random()
+        featuredWorkoutDescTextView.text = randomWorkout
 
         Log.d(TAG, "Dashboard data updated successfully")
+    }
+
+    private fun showSettingsDialog() {
+        val options = arrayOf(
+            "Edit Profile",
+            "Account Settings",
+            "Logout"
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle("Settings")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> showEditProfileDialog()
+                    1 -> showAccountSettings()
+                    2 -> showLogoutConfirmation()
+                }
+            }
+            .show()
+    }
+
+    private fun showUserMenu() {
+        val options = arrayOf(
+            "Profile Settings",
+            "Account Settings",
+            "Sign Out"
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle("Account Menu")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> showEditProfileDialog()
+                    1 -> showAccountSettings()
+                    2 -> showLogoutConfirmation()
+                }
+            }
+            .show()
+    }
+
+    private fun showEditProfileDialog() {
+        lifecycleScope.launch {
+            try {
+                val currentUser = userRepository.getCurrentUser()
+                if (currentUser != null) {
+                    val dialogView = LayoutInflater.from(this@DashboardActivity).inflate(R.layout.dialog_edit_profile, null)
+
+                    val nameInput = dialogView.findViewById<EditText>(R.id.edit_profile_name)
+                    val ageInput = dialogView.findViewById<EditText>(R.id.edit_profile_age)
+                    val heightInput = dialogView.findViewById<EditText>(R.id.edit_profile_height)
+                    val currentWeightInput = dialogView.findViewById<EditText>(R.id.edit_profile_current_weight)
+                    val targetWeightInput = dialogView.findViewById<EditText>(R.id.edit_profile_target_weight)
+                    val activitySpinner = dialogView.findViewById<Spinner>(R.id.edit_profile_activity_level)
+
+                    // Populate current values
+                    nameInput.setText(currentUser.name)
+                    currentUser.age?.let { age -> ageInput.setText(age.toString()) }
+                    currentUser.height?.let { height -> heightInput.setText(height.toString()) }
+                    currentUser.currentWeight?.let { weight -> currentWeightInput.setText(weight.toString()) }
+                    currentUser.targetWeight?.let { target -> targetWeightInput.setText(target.toString()) }
+
+                    // Setup activity level spinner
+                    val activityLevels = arrayOf("Sedentary", "Lightly Active", "Moderately Active", "Very Active", "Super Active")
+                    val spinnerAdapter = ArrayAdapter(this@DashboardActivity, android.R.layout.simple_spinner_item, activityLevels)
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    activitySpinner.adapter = spinnerAdapter
+
+                    // Select current activity level
+                    val currentIndex = activityLevels.indexOf(currentUser.activityLevel ?: "Moderately Active")
+                    if (currentIndex >= 0) activitySpinner.setSelection(currentIndex)
+
+                    AlertDialog.Builder(this@DashboardActivity)
+                        .setTitle("Edit Profile")
+                        .setView(dialogView)
+                        .setPositiveButton("Save") { dialog, which ->
+                            saveProfileChanges(
+                                nameInput.text.toString().trim(),
+                                ageInput.text.toString().toIntOrNull(),
+                                heightInput.text.toString().toIntOrNull(),
+                                currentWeightInput.text.toString().toDoubleOrNull(),
+                                targetWeightInput.text.toString().toDoubleOrNull(),
+                                activityLevels[activitySpinner.selectedItemPosition]
+                            )
+                        }
+                        .setNegativeButton("Cancel", null)
+                        .show()
+                } else {
+                    Toast.makeText(this@DashboardActivity, "Error loading user data", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error showing edit profile dialog: ${e.message}", e)
+                Toast.makeText(this@DashboardActivity, "Error loading profile", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun saveProfileChanges(name: String, age: Int?, height: Int?, currentWeight: Double?, targetWeight: Double?, activityLevel: String) {
+        if (name.isEmpty()) {
+            Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        lifecycleScope.launch {
+            try {
+                val result = userRepository.updateUserProfile(name, age, height, currentWeight, targetWeight, activityLevel)
+                if (result.isSuccess) {
+                    Toast.makeText(this@DashboardActivity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+                    updateDashboardData() // Refresh the dashboard with new data
+                } else {
+                    Toast.makeText(this@DashboardActivity, "Failed to update profile: ${result.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error saving profile changes: ${e.message}", e)
+                Toast.makeText(this@DashboardActivity, "Error saving changes", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showAccountSettings() {
+        val options = arrayOf(
+            "Change Password",
+            "Delete Account"
+        )
+
+        AlertDialog.Builder(this)
+            .setTitle("Account Settings")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> showChangePasswordDialog()
+                    1 -> showDeleteAccountConfirmation()
+                }
+            }
+            .show()
+    }
+
+    private fun showChangePasswordDialog() {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_change_password, null)
+
+        val currentPasswordInput = dialogView.findViewById<EditText>(R.id.current_password_input)
+        val newPasswordInput = dialogView.findViewById<EditText>(R.id.new_password_input)
+        val confirmPasswordInput = dialogView.findViewById<EditText>(R.id.confirm_password_input)
+
+        AlertDialog.Builder(this)
+            .setTitle("Change Password")
+            .setView(dialogView)
+            .setPositiveButton("Change") { dialog, which ->
+                val currentPassword = currentPasswordInput.text.toString()
+                val newPassword = newPasswordInput.text.toString()
+                val confirmPassword = confirmPasswordInput.text.toString()
+
+                if (validatePasswordChange(currentPassword, newPassword, confirmPassword)) {
+                    changePassword(currentPassword, newPassword)
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun validatePasswordChange(currentPassword: String, newPassword: String, confirmPassword: String): Boolean {
+        return when {
+            currentPassword.isEmpty() -> {
+                Toast.makeText(this, "Please enter current password", Toast.LENGTH_SHORT).show()
+                false
+            }
+            newPassword.length < 6 -> {
+                Toast.makeText(this, "New password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                false
+            }
+            newPassword != confirmPassword -> {
+                Toast.makeText(this, "New passwords don't match", Toast.LENGTH_SHORT).show()
+                false
+            }
+            else -> true
+        }
+    }
+
+    private fun changePassword(currentPassword: String, newPassword: String) {
+        lifecycleScope.launch {
+            try {
+                val result = userRepository.changePassword(currentPassword, newPassword)
+                if (result.isSuccess) {
+                    Toast.makeText(this@DashboardActivity, "Password changed successfully!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@DashboardActivity, "Failed to change password: ${result.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error changing password: ${e.message}", e)
+                Toast.makeText(this@DashboardActivity, "Error changing password", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showDeleteAccountConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Account")
+            .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
+            .setPositiveButton("Delete") { dialog, which ->
+                deleteAccount()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun deleteAccount() {
+        lifecycleScope.launch {
+            try {
+                val result = userRepository.deleteAccount()
+                if (result.isSuccess) {
+                    Toast.makeText(this@DashboardActivity, "Account deleted successfully", Toast.LENGTH_SHORT).show()
+
+                    // Navigate to sign in
+                    val intent = Intent(this@DashboardActivity, SignInActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this@DashboardActivity, "Failed to delete account: ${result.exceptionOrNull()?.message}", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error deleting account: ${e.message}", e)
+                Toast.makeText(this@DashboardActivity, "Error deleting account", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showLogoutConfirmation() {
+        AlertDialog.Builder(this)
+            .setTitle("Logout")
+            .setMessage("Are you sure you want to logout?")
+            .setPositiveButton("Logout") { dialog, which ->
+                logout()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun logout() {
+        userRepository.signOut()
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+
+        // Navigate to sign in
+        val intent = Intent(this, SignInActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
     }
 }

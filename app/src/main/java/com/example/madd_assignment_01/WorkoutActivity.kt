@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.madd_assignment_01.data.DataManager
+import com.example.madd_assignment_01.utils.NavigationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -77,6 +79,7 @@ class WorkoutActivity : AppCompatActivity() {
     // Data
     private val workoutHistory = mutableListOf<WorkoutRecord>()
     private var currentFilter = WorkoutFilter.ALL
+    private lateinit var dataManager: DataManager
 
     // Dialog
     private var addWorkoutDialog: AlertDialog? = null
@@ -91,10 +94,11 @@ class WorkoutActivity : AppCompatActivity() {
 
         try {
             setContentView(R.layout.activity_workouts)
+            dataManager = DataManager.getInstance(this)
             initializeViews()
             setupClickListeners()
             setupRecyclerView()
-            loadSampleData()
+            loadWorkoutData()
             updateWorkoutHistory()
 
             Log.d(TAG, "WorkoutActivity initialized successfully")
@@ -130,13 +134,6 @@ class WorkoutActivity : AppCompatActivity() {
             // Workout history
             workoutHistoryRecyclerView = findViewById(R.id.workout_history_recyclerview)
 
-            // Bottom navigation
-            navHome = findViewById(R.id.nav_home)
-            navWorkouts = findViewById(R.id.nav_workouts)
-            navDiet = findViewById(R.id.nav_diet)
-            navGoals = findViewById(R.id.nav_goals)
-            navReminders = findViewById(R.id.nav_reminders)
-            navAnalytics = findViewById(R.id.nav_analytics)
 
             Log.d(TAG, "All views initialized successfully")
         } catch (e: Exception) {
@@ -220,38 +217,40 @@ class WorkoutActivity : AppCompatActivity() {
             startFeaturedWorkout()
         }
 
-        // Bottom navigation
+        // Setup bottom navigation
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        navHome = findViewById(R.id.nav_home)
+        navWorkouts = findViewById(R.id.nav_workouts)
+        navDiet = findViewById(R.id.nav_diet)
+        navGoals = findViewById(R.id.nav_goals)
+        navReminders = findViewById(R.id.nav_reminders)
+        navAnalytics = findViewById(R.id.nav_analytics)
+
         navHome.setOnClickListener {
-            Log.d(TAG, "Home navigation clicked")
-            finish() // Go back to dashboard
+            NavigationUtils.navigateToHome(this)
         }
 
         navWorkouts.setOnClickListener {
-            Log.d(TAG, "Workouts navigation clicked - already here")
+            // Already on workouts page
         }
 
         navDiet.setOnClickListener {
-            Log.d(TAG, "Diet navigation clicked")
-            val intent = Intent(this, DietActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToDiet(this)
         }
 
         navGoals.setOnClickListener {
-            Log.d(TAG, "Goals navigation clicked")
-            val intent = Intent(this, GoalsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToGoals(this)
         }
 
         navReminders.setOnClickListener {
-            Log.d(TAG, "Reminders navigation clicked")
-            val intent = Intent(this, ReminderActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToReminders(this)
         }
 
         navAnalytics.setOnClickListener {
-            Log.d(TAG, "Analytics navigation clicked")
-            val intent = Intent(this, AnalyticsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToAnalytics(this)
         }
     }
 
@@ -274,55 +273,68 @@ class WorkoutActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadWorkoutData() {
+        val savedWorkouts = dataManager.getWorkouts()
+
+        if (savedWorkouts.isEmpty()) {
+            // Load sample data only if no saved data exists
+            loadSampleData()
+        } else {
+            workoutHistory.clear()
+            workoutHistory.addAll(savedWorkouts)
+        }
+
+        Log.d(TAG, "Workout data loaded: ${workoutHistory.size} workouts")
+    }
+
     private fun loadSampleData() {
         val calendar = Calendar.getInstance()
 
         // Today
-        workoutHistory.add(
-            WorkoutRecord(
-                name = "Morning Run",
-                type = WorkoutType.CARDIO,
-                date = calendar.time,
-                duration = 30,
-                calories = 320
-            )
+        val morningRun = WorkoutRecord(
+            name = "Morning Run",
+            type = WorkoutType.CARDIO,
+            date = calendar.time,
+            duration = 30,
+            calories = 320
         )
+        workoutHistory.add(morningRun)
 
         // Yesterday
         calendar.add(Calendar.DAY_OF_MONTH, -1)
-        workoutHistory.add(
-            WorkoutRecord(
-                name = "Upper Body Strength",
-                type = WorkoutType.STRENGTH,
-                date = calendar.time,
-                duration = 45,
-                calories = 280
-            )
+        val upperBodyStrength = WorkoutRecord(
+            name = "Upper Body Strength",
+            type = WorkoutType.STRENGTH,
+            date = calendar.time,
+            duration = 45,
+            calories = 280
         )
+        workoutHistory.add(upperBodyStrength)
 
         // 2 days ago
         calendar.add(Calendar.DAY_OF_MONTH, -1)
-        workoutHistory.add(
-            WorkoutRecord(
-                name = "Yoga Session",
-                type = WorkoutType.FLEXIBILITY,
-                date = calendar.time,
-                duration = 60,
-                calories = 220
-            )
+        val yogaSession = WorkoutRecord(
+            name = "Yoga Session",
+            type = WorkoutType.FLEXIBILITY,
+            date = calendar.time,
+            duration = 60,
+            calories = 220
         )
+        workoutHistory.add(yogaSession)
 
         // 3 days ago
         calendar.add(Calendar.DAY_OF_MONTH, -1)
-        workoutHistory.add(
-            WorkoutRecord(
-                name = "Evening Bike Ride",
-                type = WorkoutType.CARDIO,
-                date = calendar.time,
-                duration = 40,
-                calories = 350
-            )
+        val bikeRide = WorkoutRecord(
+            name = "Evening Bike Ride",
+            type = WorkoutType.CARDIO,
+            date = calendar.time,
+            duration = 40,
+            calories = 350
         )
+        workoutHistory.add(bikeRide)
+
+        // Save sample data to storage
+        dataManager.saveWorkouts(workoutHistory)
 
         Log.d(TAG, "Sample workout data loaded: ${workoutHistory.size} workouts")
     }
@@ -441,6 +453,7 @@ class WorkoutActivity : AppCompatActivity() {
 
     private fun addWorkout(workout: WorkoutRecord) {
         workoutHistory.add(0, workout) // Add to beginning
+        dataManager.addWorkout(workout)
         updateWorkoutHistory()
     }
 
@@ -573,6 +586,7 @@ class WorkoutActivity : AppCompatActivity() {
             .setMessage("Are you sure you want to delete '${workout.name}'?")
             .setPositiveButton("Delete") { _, _ ->
                 workoutHistory.remove(workout)
+                dataManager.deleteWorkout(workout.id)
                 updateWorkoutHistory()
                 Toast.makeText(this, "Workout deleted", Toast.LENGTH_SHORT).show()
             }

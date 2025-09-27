@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.madd_assignment_01.utils.NavigationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -187,13 +188,6 @@ class AnalyticsActivity : AppCompatActivity() {
             // Motivational Message
             motivationalMessage = findViewById(R.id.motivational_message)
 
-            // Bottom navigation
-            navHome = findViewById(R.id.nav_home)
-            navWorkouts = findViewById(R.id.nav_workouts)
-            navDiet = findViewById(R.id.nav_diet)
-            navGoals = findViewById(R.id.nav_goals)
-            navReminders = findViewById(R.id.nav_reminders)
-            navAnalytics = findViewById(R.id.nav_analytics)
 
             Log.d(TAG, "All views initialized successfully")
         } catch (e: Exception) {
@@ -226,38 +220,40 @@ class AnalyticsActivity : AppCompatActivity() {
             showAllAchievements()
         }
 
-        // Bottom navigation
+        // Setup bottom navigation
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        navHome = findViewById(R.id.nav_home)
+        navWorkouts = findViewById(R.id.nav_workouts)
+        navDiet = findViewById(R.id.nav_diet)
+        navGoals = findViewById(R.id.nav_goals)
+        navReminders = findViewById(R.id.nav_reminders)
+        navAnalytics = findViewById(R.id.nav_analytics)
+
         navHome.setOnClickListener {
-            Log.d(TAG, "Home navigation clicked")
-            finish()
+            NavigationUtils.navigateToHome(this)
         }
 
         navWorkouts.setOnClickListener {
-            Log.d(TAG, "Workouts navigation clicked")
-            val intent = Intent(this, WorkoutActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToWorkouts(this)
         }
 
         navDiet.setOnClickListener {
-            Log.d(TAG, "Diet navigation clicked")
-            val intent = Intent(this, DietActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToDiet(this)
         }
 
         navGoals.setOnClickListener {
-            Log.d(TAG, "Goals navigation clicked")
-            val intent = Intent(this, GoalsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToGoals(this)
         }
 
         navReminders.setOnClickListener {
-            Log.d(TAG, "Reminders navigation clicked")
-            val intent = Intent(this, ReminderActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToReminders(this)
         }
 
         navAnalytics.setOnClickListener {
-            Log.d(TAG, "Analytics navigation clicked - already here")
+            // Already on analytics page
         }
     }
 
@@ -333,7 +329,7 @@ class AnalyticsActivity : AppCompatActivity() {
         achievements.addAll(listOf(
             Achievement("7day_streak", "7-Day Streak", "Completed workouts for 7 consecutive days", R.drawable.goals_icon, true, Date()),
             Achievement("10_workouts", "10 Workouts", "Completed your first 10 workouts", R.drawable.workout_icon, true, Date()),
-            Achievement("hydration_pro", "Hydration Pro", "Met your daily water goal for 30 days", R.drawable.heart_pulse_blue, true, Date()),
+            Achievement("hydration_pro", "Hydration Pro", "Met your daily water goal for 30 days", R.drawable.home, true, Date()),
             Achievement("weight_loss", "Weight Loss", "Lost 5kg towards your goal", R.drawable.goals_icon, false),
             Achievement("consistency", "Consistency King", "30 days of consistent workouts", R.drawable.workout_icon, false),
             Achievement("macro_master", "Macro Master", "Perfect macronutrient balance for 14 days", R.drawable.diet_icon, false)

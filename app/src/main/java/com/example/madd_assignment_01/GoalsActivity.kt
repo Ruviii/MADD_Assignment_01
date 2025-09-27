@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.madd_assignment_01.data.DataManager
+import com.example.madd_assignment_01.utils.NavigationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -90,6 +92,7 @@ class GoalsActivity : AppCompatActivity() {
     // Data
     private val activeGoals = mutableListOf<Goal>()
     private val completedGoals = mutableListOf<Goal>()
+    private lateinit var dataManager: DataManager
 
     // Dialog
     private var addGoalDialog: AlertDialog? = null
@@ -105,10 +108,11 @@ class GoalsActivity : AppCompatActivity() {
 
         try {
             setContentView(R.layout.activity_goals)
+            dataManager = DataManager.getInstance(this)
             initializeViews()
             setupClickListeners()
             setupRecyclerViews()
-            loadSampleGoals()
+            loadGoalsFromStorage()
 
             Log.d(TAG, "GoalsActivity initialized successfully")
         } catch (e: Exception) {
@@ -127,13 +131,6 @@ class GoalsActivity : AppCompatActivity() {
             activeGoalsRecyclerView = findViewById(R.id.active_goals_recyclerview)
             completedGoalsRecyclerView = findViewById(R.id.completed_goals_recyclerview)
 
-            // Bottom navigation
-            navHome = findViewById(R.id.nav_home)
-            navWorkouts = findViewById(R.id.nav_workouts)
-            navDiet = findViewById(R.id.nav_diet)
-            navGoals = findViewById(R.id.nav_goals)
-            navReminders = findViewById(R.id.nav_reminders)
-            navAnalytics = findViewById(R.id.nav_analytics)
 
             Log.d(TAG, "All views initialized successfully")
         } catch (e: Exception) {
@@ -154,38 +151,40 @@ class GoalsActivity : AppCompatActivity() {
             showAddGoalDialog()
         }
 
-        // Bottom navigation
+        // Setup bottom navigation
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        navHome = findViewById(R.id.nav_home)
+        navWorkouts = findViewById(R.id.nav_workouts)
+        navDiet = findViewById(R.id.nav_diet)
+        navGoals = findViewById(R.id.nav_goals)
+        navReminders = findViewById(R.id.nav_reminders)
+        navAnalytics = findViewById(R.id.nav_analytics)
+
         navHome.setOnClickListener {
-            Log.d(TAG, "Home navigation clicked")
-            finish() // Go back to dashboard
+            NavigationUtils.navigateToHome(this)
         }
 
         navWorkouts.setOnClickListener {
-            Log.d(TAG, "Workouts navigation clicked")
-            val intent = Intent(this, WorkoutActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToWorkouts(this)
         }
 
         navDiet.setOnClickListener {
-            Log.d(TAG, "Diet navigation clicked")
-            val intent = Intent(this, DietActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToDiet(this)
         }
 
         navGoals.setOnClickListener {
-            Log.d(TAG, "Goals navigation clicked - already here")
+            // Already on goals page
         }
 
         navReminders.setOnClickListener {
-            Log.d(TAG, "Reminders navigation clicked")
-            val intent = Intent(this, ReminderActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToReminders(this)
         }
 
         navAnalytics.setOnClickListener {
-            Log.d(TAG, "Analytics navigation clicked")
-            val intent = Intent(this, AnalyticsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToAnalytics(this)
         }
     }
 
@@ -227,63 +226,83 @@ class GoalsActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadGoalsFromStorage() {
+        val savedActiveGoals = dataManager.getActiveGoals()
+        val savedCompletedGoals = dataManager.getCompletedGoals()
+
+        if (savedActiveGoals.isEmpty() && savedCompletedGoals.isEmpty()) {
+            // Load sample goals only if no saved data exists
+            loadSampleGoals()
+        } else {
+            activeGoals.clear()
+            completedGoals.clear()
+            activeGoals.addAll(savedActiveGoals)
+            completedGoals.addAll(savedCompletedGoals)
+
+            activeGoalsAdapter.notifyDataSetChanged()
+            completedGoalsAdapter.notifyDataSetChanged()
+        }
+
+        Log.d(TAG, "Goals loaded from storage: ${activeGoals.size} active, ${completedGoals.size} completed")
+    }
+
     private fun loadSampleGoals() {
         val calendar = Calendar.getInstance()
 
         // Active goals
         calendar.add(Calendar.DAY_OF_MONTH, 30)
-        activeGoals.add(
-            Goal(
-                name = "Lose 5kg",
-                category = GoalCategory.WEIGHT,
-                currentValue = "73.5kg",
-                targetValue = "70kg",
-                currentNumericValue = 73.5,
-                targetNumericValue = 70.0,
-                deadline = calendar.time
-            )
+        val weightGoal = Goal(
+            name = "Lose 5kg",
+            category = GoalCategory.WEIGHT,
+            currentValue = "73.5kg",
+            targetValue = "70kg",
+            currentNumericValue = 73.5,
+            targetNumericValue = 70.0,
+            deadline = calendar.time
         )
+        activeGoals.add(weightGoal)
 
         calendar.add(Calendar.DAY_OF_MONTH, -15)
-        activeGoals.add(
-            Goal(
-                name = "Run 5km",
-                category = GoalCategory.CARDIO,
-                currentValue = "3.2km",
-                targetValue = "5km",
-                currentNumericValue = 3.2,
-                targetNumericValue = 5.0,
-                deadline = calendar.time
-            )
+        val cardioGoal = Goal(
+            name = "Run 5km",
+            category = GoalCategory.CARDIO,
+            currentValue = "3.2km",
+            targetValue = "5km",
+            currentNumericValue = 3.2,
+            targetNumericValue = 5.0,
+            deadline = calendar.time
         )
+        activeGoals.add(cardioGoal)
 
         calendar.add(Calendar.DAY_OF_MONTH, 60)
-        activeGoals.add(
-            Goal(
-                name = "Drink 2L water daily",
-                category = GoalCategory.HYDRATION,
-                currentValue = "1.5L avg",
-                targetValue = "2L daily",
-                currentNumericValue = 1.5,
-                targetNumericValue = 2.0,
-                deadline = calendar.time
-            )
+        val hydrationGoal = Goal(
+            name = "Drink 2L water daily",
+            category = GoalCategory.HYDRATION,
+            currentValue = "1.5L avg",
+            targetValue = "2L daily",
+            currentNumericValue = 1.5,
+            targetNumericValue = 2.0,
+            deadline = calendar.time
         )
+        activeGoals.add(hydrationGoal)
 
         // Completed goals
-        completedGoals.add(
-            Goal(
-                name = "Complete 10 workouts",
-                category = GoalCategory.ACTIVITY,
-                currentValue = "10",
-                targetValue = "10",
-                currentNumericValue = 10.0,
-                targetNumericValue = 10.0,
-                deadline = Date(),
-                isCompleted = true,
-                completedAt = Date()
-            )
+        val completedGoal = Goal(
+            name = "Complete 10 workouts",
+            category = GoalCategory.ACTIVITY,
+            currentValue = "10",
+            targetValue = "10",
+            currentNumericValue = 10.0,
+            targetNumericValue = 10.0,
+            deadline = Date(),
+            isCompleted = true,
+            completedAt = Date()
         )
+        completedGoals.add(completedGoal)
+
+        // Save sample goals to storage
+        dataManager.saveActiveGoals(activeGoals)
+        dataManager.saveCompletedGoals(completedGoals)
 
         activeGoalsAdapter.notifyDataSetChanged()
         completedGoalsAdapter.notifyDataSetChanged()
@@ -464,6 +483,7 @@ class GoalsActivity : AppCompatActivity() {
 
     private fun addGoal(goal: Goal) {
         activeGoals.add(0, goal) // Add to beginning
+        dataManager.addGoal(goal)
         activeGoalsAdapter.notifyItemInserted(0)
     }
 
@@ -480,6 +500,8 @@ class GoalsActivity : AppCompatActivity() {
 
                 activeGoals.remove(goal)
                 completedGoals.add(0, completedGoal)
+
+                dataManager.completeGoal(goal.id)
 
                 activeGoalsAdapter.notifyDataSetChanged()
                 completedGoalsAdapter.notifyDataSetChanged()
@@ -521,6 +543,7 @@ class GoalsActivity : AppCompatActivity() {
         val index = activeGoals.indexOf(goal)
         if (index >= 0) {
             activeGoals[index] = updatedGoal
+            dataManager.updateGoalProgress(goal.id, newCurrentValue, newNumericValue)
             activeGoalsAdapter.notifyItemChanged(index)
 
             Toast.makeText(this, "Progress updated!", Toast.LENGTH_SHORT).show()
@@ -592,6 +615,7 @@ class GoalsActivity : AppCompatActivity() {
             .setMessage("Are you sure you want to delete '${goal.name}'?")
             .setPositiveButton("Delete") { _, _ ->
                 activeGoals.remove(goal)
+                dataManager.deleteGoal(goal.id)
                 activeGoalsAdapter.notifyDataSetChanged()
                 Toast.makeText(this, "Goal deleted", Toast.LENGTH_SHORT).show()
             }

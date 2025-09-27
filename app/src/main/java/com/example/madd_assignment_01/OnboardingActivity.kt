@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.ViewFlipper
 import androidx.appcompat.app.AppCompatActivity
+import com.example.madd_assignment_01.data.DataManager
 
 class OnboardingActivity : AppCompatActivity() {
 
@@ -130,6 +131,10 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun navigateToSignUp() {
         try {
+            // Mark first launch as complete
+            val dataManager = DataManager.getInstance(this)
+            dataManager.setFirstLaunchComplete()
+
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             finish()

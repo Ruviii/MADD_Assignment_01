@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
-        android:src="@drawable/onboarding_3"
+        android:src="@drawable/diet_1"
         android:scaleType="centerCrop" />
 
     <!-- Overlay for better text readability -->
@@ -79,17 +79,37 @@
                 app:cardBackgroundColor="@color/card_background"
                 app:cardElevation="0dp">
 
-                <TextView
-                    android:id="@+id/meal_type_display"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
-                    android:text="Breakfast"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:background="@android:color/transparent"
-                    android:paddingHorizontal="16dp" />
+                    android:background="?android:attr/selectableItemBackground">
+
+                    <TextView
+                        android:id="@+id/meal_type_display"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_toStartOf="@+id/dropdown_arrow"
+                        android:text="Breakfast"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="8dp" />
+
+                    <ImageView
+                        android:id="@+id/dropdown_arrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="16dp"
+                        android:src="@android:drawable/arrow_down_float"
+                        android:tint="@color/gray_text" />
+
+                </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
@@ -227,11 +247,5 @@
 
     </ScrollView>
 
-    <!-- Hidden spinner for meal type selection -->
-    <Spinner
-        android:id="@+id/meal_type_spinner"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone" />
 
 </RelativeLayout>

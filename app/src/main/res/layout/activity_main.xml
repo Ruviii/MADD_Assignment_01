@@ -23,7 +23,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/heart_pulse_blue"
+            android:src="@drawable/logo"
             android:tint="@color/primary_blue"
             android:layout_gravity="center_vertical"
             android:contentDescription="App Icon" />

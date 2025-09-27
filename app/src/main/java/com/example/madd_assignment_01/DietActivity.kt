@@ -8,12 +8,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.madd_assignment_01.data.DataManager
+import com.example.madd_assignment_01.utils.NavigationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -116,6 +124,8 @@ class DietActivity : AppCompatActivity() {
     // Meals
     private lateinit var mealsRecyclerView: RecyclerView
     private lateinit var mealsAdapter: MealsAdapter
+    private lateinit var mealsArrowLeft: ImageView
+    private lateinit var mealsArrowRight: ImageView
 
     // Bottom navigation
     private lateinit var navHome: LinearLayout
@@ -127,8 +137,9 @@ class DietActivity : AppCompatActivity() {
 
     // Data
     private val todaysMeals = mutableListOf<Meal>()
-    private val dailyNutrition = DailyNutrition()
+    private var dailyNutrition = DailyNutrition()
     private val foodDatabase = mutableListOf<FoodItem>()
+    private lateinit var dataManager: DataManager
 
     // Dialog
     private var addMealDialog: AlertDialog? = null
@@ -143,11 +154,13 @@ class DietActivity : AppCompatActivity() {
 
         try {
             setContentView(R.layout.activity_diet)
+            dataManager = DataManager.getInstance(this)
             initializeViews()
             setupClickListeners()
-            setupRecyclerView()
             loadFoodDatabase()
-            loadSampleMeals()
+            loadMealsFromStorage()
+            setupRecyclerView() // Setup RecyclerView after loading meals
+            loadNutritionSettings()
             updateNutritionSummary()
 
             Log.d(TAG, "DietActivity initialized successfully")
@@ -188,14 +201,9 @@ class DietActivity : AppCompatActivity() {
 
             // Meals
             mealsRecyclerView = findViewById(R.id.meals_recyclerview)
+            mealsArrowLeft = findViewById(R.id.meals_arrow_left)
+            mealsArrowRight = findViewById(R.id.meals_arrow_right)
 
-            // Bottom navigation
-            navHome = findViewById(R.id.nav_home)
-            navWorkouts = findViewById(R.id.nav_workouts)
-            navDiet = findViewById(R.id.nav_diet)
-            navGoals = findViewById(R.id.nav_goals)
-            navReminders = findViewById(R.id.nav_reminders)
-            navAnalytics = findViewById(R.id.nav_analytics)
 
             Log.d(TAG, "All views initialized successfully")
         } catch (e: Exception) {
@@ -244,38 +252,40 @@ class DietActivity : AppCompatActivity() {
             showNutritionTips()
         }
 
-        // Bottom navigation
+        // Setup bottom navigation
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        navHome = findViewById(R.id.nav_home)
+        navWorkouts = findViewById(R.id.nav_workouts)
+        navDiet = findViewById(R.id.nav_diet)
+        navGoals = findViewById(R.id.nav_goals)
+        navReminders = findViewById(R.id.nav_reminders)
+        navAnalytics = findViewById(R.id.nav_analytics)
+
         navHome.setOnClickListener {
-            Log.d(TAG, "Home navigation clicked")
-            finish() // Go back to dashboard
+            NavigationUtils.navigateToHome(this)
         }
 
         navWorkouts.setOnClickListener {
-            Log.d(TAG, "Workouts navigation clicked")
-            val intent = Intent(this, WorkoutActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToWorkouts(this)
         }
 
         navDiet.setOnClickListener {
-            Log.d(TAG, "Diet navigation clicked - already here")
+            // Already on diet page
         }
 
         navGoals.setOnClickListener {
-            Log.d(TAG, "Goals navigation clicked")
-            val intent = Intent(this, GoalsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToGoals(this)
         }
 
         navReminders.setOnClickListener {
-            Log.d(TAG, "Reminders navigation clicked")
-            val intent = Intent(this, ReminderActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToReminders(this)
         }
 
         navAnalytics.setOnClickListener {
-            Log.d(TAG, "Analytics navigation clicked")
-            val intent = Intent(this, AnalyticsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToAnalytics(this)
         }
     }
 
@@ -288,9 +298,64 @@ class DietActivity : AppCompatActivity() {
             }
         )
 
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         mealsRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@DietActivity)
+            this.layoutManager = layoutManager
             adapter = mealsAdapter
+            setHasFixedSize(false)
+            // Add smooth scrolling behavior
+            isNestedScrollingEnabled = true
+        }
+
+        setupArrowNavigation(layoutManager)
+    }
+
+    private fun setupArrowNavigation(layoutManager: LinearLayoutManager) {
+        // Initial arrow visibility
+        updateArrowVisibility(layoutManager)
+
+        // Left arrow click
+        mealsArrowLeft.setOnClickListener {
+            val currentPosition = layoutManager.findFirstVisibleItemPosition()
+            if (currentPosition > 0) {
+                mealsRecyclerView.smoothScrollToPosition(currentPosition - 1)
+            }
+        }
+
+        // Right arrow click
+        mealsArrowRight.setOnClickListener {
+            val currentPosition = layoutManager.findLastVisibleItemPosition()
+            if (currentPosition < mealsAdapter.itemCount - 1) {
+                mealsRecyclerView.smoothScrollToPosition(currentPosition + 1)
+            }
+        }
+
+        // Listen for scroll changes to update arrow visibility
+        mealsRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                updateArrowVisibility(layoutManager)
+            }
+        })
+    }
+
+    private fun updateArrowVisibility(layoutManager: LinearLayoutManager) {
+        val firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()
+        val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
+        val itemCount = mealsAdapter.itemCount
+
+        // Show left arrow if not at the beginning
+        mealsArrowLeft.visibility = if (firstVisiblePosition > 0 && itemCount > 0) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        // Show right arrow if not at the end
+        mealsArrowRight.visibility = if (lastVisiblePosition < itemCount - 1 && itemCount > 0) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
     }
 
@@ -325,6 +390,33 @@ class DietActivity : AppCompatActivity() {
         Log.d(TAG, "Food database loaded: ${foodDatabase.size} items")
     }
 
+    private fun loadMealsFromStorage() {
+        val savedMeals = dataManager.getMeals()
+
+        if (savedMeals.isEmpty()) {
+            // Load sample meals only if no saved data exists
+            loadSampleMeals()
+        } else {
+            // Filter today's meals
+            val today = Calendar.getInstance()
+            val filteredTodayMeals = savedMeals.filter { meal ->
+                val mealDate = Calendar.getInstance().apply { time = meal.date }
+                today.get(Calendar.YEAR) == mealDate.get(Calendar.YEAR) &&
+                today.get(Calendar.DAY_OF_YEAR) == mealDate.get(Calendar.DAY_OF_YEAR)
+            }
+
+            todaysMeals.clear()
+            todaysMeals.addAll(filteredTodayMeals)
+
+            // Update adapter if it exists
+            if (::mealsAdapter.isInitialized) {
+                mealsAdapter.updateMeals(todaysMeals)
+            }
+        }
+
+        Log.d(TAG, "Meals loaded from storage: ${todaysMeals.size} meals")
+    }
+
     private fun loadSampleMeals() {
         // Breakfast
         val breakfast = Meal(
@@ -355,9 +447,22 @@ class DietActivity : AppCompatActivity() {
         }
 
         todaysMeals.addAll(listOf(breakfast, lunch, snack))
-        mealsAdapter.notifyDataSetChanged()
+
+        // Save sample meals to storage
+        dataManager.addMeal(breakfast)
+        dataManager.addMeal(lunch)
+        dataManager.addMeal(snack)
+
+        // Update adapter if it exists
+        if (::mealsAdapter.isInitialized) {
+            mealsAdapter.updateMeals(todaysMeals)
+        }
 
         Log.d(TAG, "Sample meals loaded: ${todaysMeals.size} meals")
+    }
+
+    private fun loadNutritionSettings() {
+        dailyNutrition = dataManager.getDailyNutrition()
     }
 
     private fun updateNutritionSummary() {
@@ -389,8 +494,8 @@ class DietActivity : AppCompatActivity() {
         try {
             val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_meal, null)
 
-            val mealTypeSpinner = dialogView.findViewById<Spinner>(R.id.meal_type_spinner)
             val mealTypeDisplay = dialogView.findViewById<TextView>(R.id.meal_type_display)
+            val mealTypeContainer = mealTypeDisplay.parent as android.widget.RelativeLayout
             val foodSearchInput = dialogView.findViewById<EditText>(R.id.food_search_input)
             val foodSuggestionsRecyclerView = dialogView.findViewById<RecyclerView>(R.id.food_suggestions_recyclerview)
             val selectedItemsRecyclerView = dialogView.findViewById<RecyclerView>(R.id.selected_items_recyclerview)
@@ -399,22 +504,19 @@ class DietActivity : AppCompatActivity() {
             val cancelMealButton = dialogView.findViewById<Button>(R.id.cancel_meal_button)
             val addMealButton = dialogView.findViewById<Button>(R.id.add_meal_button)
 
-            // Setup meal type spinner (hidden) and display
+            // Setup meal type selection
             val mealTypes = MealType.values()
-            val spinnerAdapter = ArrayAdapter(this, R.layout.spinner_item_meal_type, mealTypes.map { it.displayName })
-            spinnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_workout_type)
-            mealTypeSpinner.adapter = spinnerAdapter
+            var selectedMealTypeIndex = 0
 
-            // Setup meal type display (clickable to show spinner)
-            mealTypeDisplay.setOnClickListener {
-                mealTypeSpinner.performClick()
-            }
+            // Set initial selection
+            mealTypeDisplay.text = mealTypes[selectedMealTypeIndex].displayName
 
-            mealTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                    mealTypeDisplay.text = mealTypes[position].displayName
+            // Setup meal type display (clickable to show dropdown)
+            mealTypeContainer.setOnClickListener {
+                showMealTypeSelectionDialog(mealTypes, selectedMealTypeIndex) { selectedIndex ->
+                    selectedMealTypeIndex = selectedIndex
+                    mealTypeDisplay.text = mealTypes[selectedIndex].displayName
                 }
-                override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
             // Setup selected items
@@ -490,7 +592,7 @@ class DietActivity : AppCompatActivity() {
                     return@setOnClickListener
                 }
 
-                val selectedMealType = mealTypes[mealTypeSpinner.selectedItemPosition]
+                val selectedMealType = mealTypes[selectedMealTypeIndex]
                 val currentTime = SimpleDateFormat("hh:mm a", Locale.US).format(Date())
 
                 val newMeal = Meal(
@@ -521,25 +623,69 @@ class DietActivity : AppCompatActivity() {
         }.take(5)
     }
 
+    private fun showMealTypeSelectionDialog(
+        mealTypes: Array<MealType>,
+        currentSelection: Int,
+        onSelection: (Int) -> Unit
+    ) {
+        val mealTypeNames = mealTypes.map { it.displayName }.toTypedArray()
+
+        AlertDialog.Builder(this)
+            .setTitle("Select Meal Type")
+            .setSingleChoiceItems(mealTypeNames, currentSelection) { dialog, which ->
+                onSelection(which)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
     private fun updateTotalCalories(selectedItems: List<SelectedFoodItem>, totalCaloriesText: TextView) {
         val totalCalories = selectedItems.sumOf { it.totalCalories }
         totalCaloriesText.text = "$totalCalories kcal"
     }
 
     private fun addMeal(meal: Meal) {
-        // Find existing meal of same type and merge, or add new meal
-        val existingMealIndex = todaysMeals.indexOfFirst { it.type == meal.type }
+        // Ensure we're on the main thread
+        runOnUiThread {
+            // Save to storage first (DataManager handles merge vs add logic)
+            dataManager.addMeal(meal)
 
-        if (existingMealIndex >= 0) {
-            todaysMeals[existingMealIndex].foodItems.addAll(meal.foodItems)
-            mealsAdapter.notifyItemChanged(existingMealIndex)
-        } else {
-            todaysMeals.add(meal)
-            todaysMeals.sortBy { it.type.ordinal }
-            mealsAdapter.notifyDataSetChanged()
+            // Now update UI to reflect the change
+            // Find existing meal of same type to see if we should update or insert
+            val existingMealIndex = todaysMeals.indexOfFirst { it.type == meal.type }
+
+            if (existingMealIndex >= 0) {
+                // Merge with existing meal in UI
+                todaysMeals[existingMealIndex].foodItems.addAll(meal.foodItems)
+                mealsAdapter.notifyItemChanged(existingMealIndex)
+                Log.d(TAG, "Merged meal with existing ${meal.type.displayName}")
+
+                // Scroll to updated meal
+                mealsRecyclerView.smoothScrollToPosition(existingMealIndex)
+            } else {
+                // Determine correct position for new meal (sorted by type)
+                val insertPosition = todaysMeals.indexOfFirst { it.type.ordinal > meal.type.ordinal }
+                val finalPosition = if (insertPosition == -1) todaysMeals.size else insertPosition
+
+                // Add meal to local list
+                todaysMeals.add(finalPosition, meal)
+                mealsAdapter.notifyItemInserted(finalPosition)
+
+                Log.d(TAG, "Added new ${meal.type.displayName} meal at position $finalPosition")
+
+                // Scroll to new meal
+                mealsRecyclerView.smoothScrollToPosition(finalPosition)
+            }
+
+            updateNutritionSummary()
+
+            // Update arrow visibility after adding meals
+            val layoutManager = mealsRecyclerView.layoutManager as LinearLayoutManager
+            updateArrowVisibility(layoutManager)
+
+            Log.d(TAG, "Total meals now: ${todaysMeals.size}")
         }
-
-        updateNutritionSummary()
     }
 
     private fun showMealDetails(meal: Meal) {
@@ -579,10 +725,22 @@ class DietActivity : AppCompatActivity() {
             .setTitle("Delete Meal")
             .setMessage("Are you sure you want to delete this ${meal.type.displayName}?")
             .setPositiveButton("Delete") { _, _ ->
-                todaysMeals.remove(meal)
-                mealsAdapter.notifyDataSetChanged()
-                updateNutritionSummary()
-                Toast.makeText(this, "Meal deleted", Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    val removedIndex = todaysMeals.indexOf(meal)
+                    if (removedIndex >= 0) {
+                        todaysMeals.removeAt(removedIndex)
+                        mealsAdapter.notifyItemRemoved(removedIndex)
+                        dataManager.deleteMeal(meal.id)
+                        updateNutritionSummary()
+
+                        // Update arrow visibility after deletion
+                        val layoutManager = mealsRecyclerView.layoutManager as LinearLayoutManager
+                        updateArrowVisibility(layoutManager)
+
+                        Toast.makeText(this, "Meal deleted", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "Deleted ${meal.type.displayName} meal at position $removedIndex")
+                    }
+                }
             }
             .setNegativeButton("Cancel", null)
             .show()
@@ -665,6 +823,7 @@ class DietActivity : AppCompatActivity() {
         Toast.makeText(this, "Export data feature coming soon!", Toast.LENGTH_SHORT).show()
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         addMealDialog?.dismiss()
@@ -673,7 +832,7 @@ class DietActivity : AppCompatActivity() {
 
 // Adapter Classes
 class MealsAdapter(
-    private var meals: List<Meal>,
+    private var meals: MutableList<Meal>,
     private val onViewDetails: (Meal) -> Unit
 ) : RecyclerView.Adapter<MealsAdapter.ViewHolder>() {
 
@@ -687,7 +846,7 @@ class MealsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_meal, parent, false)
+            .inflate(R.layout.item_meal_horizontal, parent, false)
         return ViewHolder(view)
     }
 
@@ -706,14 +865,19 @@ class MealsAdapter(
         holder.viewDetailsButton.setOnClickListener {
             onViewDetails(meal)
         }
+
     }
 
-    override fun getItemCount() = meals.size
+    override fun getItemCount(): Int {
+        return meals.size
+    }
 
     fun updateMeals(newMeals: List<Meal>) {
-        meals = newMeals
+        meals.clear()
+        meals.addAll(newMeals)
         notifyDataSetChanged()
     }
+
 }
 
 class FoodItemsAdapter(

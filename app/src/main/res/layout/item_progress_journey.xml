@@ -19,7 +19,7 @@
             android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/workout_image" />
+            android:src="@drawable/onboarding_4" />
 
         <View
             android:id="@+id/completed_badge"

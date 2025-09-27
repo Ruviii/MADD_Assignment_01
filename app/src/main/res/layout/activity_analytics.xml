@@ -12,27 +12,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp"
+        android:padding="24dp"
         android:background="@color/primary_blue"
         android:gravity="center_vertical">
 
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Analytics"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/analytics_settings_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@android:drawable/ic_menu_manage"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/settings"
             android:tint="@color/white"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="8dp" />
+            android:padding="4dp" />
 
     </LinearLayout>
 
@@ -45,21 +46,21 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
 
             <!-- Your Progress Section -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="16dp">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Your Progress"
                     android:textColor="@color/white"
@@ -78,7 +79,7 @@
             <!-- Progress Journey -->
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Your Progress Journey"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -88,13 +89,13 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/progress_journey_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="24dp" />
 
             <!-- Workout Activity Chart -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="@color/card_background"
@@ -102,13 +103,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Workout Activity"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -129,7 +130,7 @@
             <!-- Calories Chart -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="@color/card_background"
@@ -137,13 +138,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Calories: Consumed vs. Burned"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -164,7 +165,7 @@
             <!-- Macronutrient Distribution -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="@color/card_background"
@@ -172,13 +173,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Macronutrient Distribution"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -188,7 +189,7 @@
                     <!-- Protein -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="8dp">
@@ -196,7 +197,7 @@
                         <TextView
                             android:id="@+id/protein_percentage_text"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Protein 30%"
                             android:textColor="@color/primary_blue"
@@ -216,7 +217,7 @@
                     <!-- Carbs -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="8dp">
@@ -224,7 +225,7 @@
                         <TextView
                             android:id="@+id/carbs_percentage_text"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Carbs 44%"
                             android:textColor="@android:color/holo_orange_light"
@@ -244,14 +245,14 @@
                     <!-- Fat -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/fat_percentage_text"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Fat 26%"
                             android:textColor="@android:color/holo_purple"
@@ -275,7 +276,7 @@
             <!-- Goal Progress -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="12dp"
                 app:cardBackgroundColor="@color/card_background"
@@ -283,13 +284,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="Goal Progress"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -299,7 +300,7 @@
                     <!-- Weight Loss -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="12dp">
@@ -307,7 +308,7 @@
                         <TextView
                             android:id="@+id/weight_loss_text"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Weight Loss - 68%"
                             android:textColor="@color/primary_blue"
@@ -327,7 +328,7 @@
                     <!-- Workout Frequency -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="12dp">
@@ -335,7 +336,7 @@
                         <TextView
                             android:id="@+id/workout_frequency_text"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Workout Frequency - 40%"
                             android:textColor="@android:color/holo_orange_light"
@@ -355,14 +356,14 @@
                     <!-- Water Intake -->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/water_intake_text"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Water Intake - 85%"
                             android:textColor="@android:color/holo_green_light"
@@ -403,13 +404,13 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="Track Your Transformation"
                             android:textColor="@color/white"
                             android:textSize="16sp"
@@ -418,7 +419,7 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="Upload photos to visualize your progress"
                             android:textColor="@color/white"
                             android:textSize="12sp"
@@ -430,7 +431,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="32dp"
                             android:text="Upload Photo"
-                            android:textColor="@color/primary_blue"
+                            android:textColor="@color/white"
                             android:background="@color/white"
                             android:textSize="12sp"
                             android:paddingHorizontal="16dp" />
@@ -440,8 +441,7 @@
                     <ImageView
                         android:layout_width="80dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/workout_image"
-                        android:scaleType="centerCrop" />
+                        android:src="@drawable/photo_1" />
 
                 </LinearLayout>
 
@@ -450,14 +450,14 @@
             <!-- Achievements Section -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Achievements"
                     android:textColor="@color/white"
@@ -467,7 +467,7 @@
                 <TextView
                     android:id="@+id/view_all_achievements"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="View All"
                     android:textColor="@color/primary_blue"
                     android:textSize="14sp"
@@ -479,22 +479,22 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/achievements_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp" />
 
             <!-- Motivational Message -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@android:color/holo_green_dark"
+                app:cardBackgroundColor="@color/card_background"
                 app:cardElevation="4dp">
 
                 <TextView
                     android:id="@+id/motivational_message"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="You're on track!\nYou've been consistent with your workouts and nutrition this week."
                     android:textColor="@color/white"
                     android:textSize="14sp"
@@ -509,36 +509,38 @@
 
     <!-- Bottom Navigation -->
     <LinearLayout
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:orientation="horizontal"
-        android:background="@color/dark_background"
-        android:paddingVertical="12dp"
-        android:paddingHorizontal="8dp"
-        android:elevation="8dp">
+        android:background="#2C3E50"
+        android:elevation="8dp"
+        android:paddingVertical="8dp">
 
         <LinearLayout
             android:id="@+id/nav_home"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless">
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_myplaces"
-                android:tint="@color/gray_text" />
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/home"
+                android:tint="@color/onboarding_text_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Home"
-                android:textColor="@color/gray_text"
-                android:textSize="12sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>
@@ -546,25 +548,27 @@
         <LinearLayout
             android:id="@+id/nav_workouts"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless">
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/workout_icon"
-                android:tint="@color/gray_text" />
+                android:tint="@color/onboarding_text_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Workouts"
-                android:textColor="@color/gray_text"
-                android:textSize="12sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>
@@ -572,25 +576,27 @@
         <LinearLayout
             android:id="@+id/nav_diet"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless">
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/diet_icon"
-                android:tint="@color/gray_text" />
+                android:tint="@color/onboarding_text_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Diet"
-                android:textColor="@color/gray_text"
-                android:textSize="12sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>
@@ -598,25 +604,27 @@
         <LinearLayout
             android:id="@+id/nav_goals"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless">
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:src="@drawable/goals_icon"
-                android:tint="@color/gray_text" />
+                android:tint="@color/onboarding_text_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Goals"
-                android:textColor="@color/gray_text"
-                android:textSize="12sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>
@@ -624,25 +632,27 @@
         <LinearLayout
             android:id="@+id/nav_reminders"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless">
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_popup_reminder"
-                android:tint="@color/gray_text" />
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/reminder"
+                android:tint="@color/onboarding_text_secondary" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="Reminders"
-                android:textColor="@color/gray_text"
-                android:textSize="12sp"
+                android:textColor="@color/onboarding_text_secondary"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>
@@ -650,17 +660,18 @@
         <LinearLayout
             android:id="@+id/nav_analytics"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="8dp"
-            android:background="?attr/selectableItemBackgroundBorderless">
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@android:drawable/ic_menu_view"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/analytics"
                 android:tint="@color/primary_blue" />
 
             <TextView
@@ -668,7 +679,8 @@
                 android:layout_height="wrap_content"
                 android:text="Analytics"
                 android:textColor="@color/primary_blue"
-                android:textSize="12sp"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
         </LinearLayout>

@@ -62,16 +62,16 @@
 
                 <ImageView
                     android:id="@+id/diet_settings_button"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="37dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="16dp"
-                    android:src="@drawable/heart_pulse_blue"
-                    android:tint="@color/white"
-                    android:contentDescription="Settings"
-                    android:clickable="true"
-                    android:focusable="true"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="4dp" />
+                    android:clickable="true"
+                    android:contentDescription="Settings"
+                    android:focusable="true"
+                    android:padding="4dp"
+                    android:src="@drawable/settings"
+                    android:tint="@color/white" />
 
             </LinearLayout>
 
@@ -399,7 +399,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="vertical"
-                                android:background="@drawable/onboarding_1"
+                                android:background="@drawable/diet_1"
                                 android:padding="20dp"
                                 android:gravity="bottom">
 
@@ -440,7 +440,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="vertical"
-                                android:background="@drawable/onboarding_2"
+                                android:background="@drawable/diet_2"
                                 android:padding="20dp"
                                 android:gravity="bottom">
 
@@ -491,12 +491,53 @@
                     android:textStyle="bold"
                     android:fontFamily="sans-serif-medium" />
 
-                <!-- Meals RecyclerView -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/meals_recyclerview"
+                <!-- Horizontal Meals Section -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <!-- Left Arrow -->
+                    <ImageView
+                        android:id="@+id/meals_arrow_left"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@android:drawable/ic_media_previous"
+                        android:tint="@color/primary_blue"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:visibility="gone"
+                        android:contentDescription="Previous meals" />
+
+                    <!-- Horizontal Meals RecyclerView -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/meals_recyclerview"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:nestedScrollingEnabled="false"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="8dp" />
+
+                    <!-- Right Arrow -->
+                    <ImageView
+                        android:id="@+id/meals_arrow_right"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@android:drawable/ic_media_next"
+                        android:tint="@color/primary_blue"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:visibility="gone"
+                        android:contentDescription="Next meals" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -518,7 +559,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:background="@drawable/onboarding_3"
+                    android:background="@drawable/diet_3"
                     android:padding="20dp"
                     android:gravity="bottom">
 
@@ -631,7 +672,7 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/heart_pulse_blue"
+                android:src="@drawable/home"
                 android:tint="@color/onboarding_text_secondary"
                 android:contentDescription="Home" />
 
@@ -747,7 +788,7 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/heart_pulse_blue"
+                android:src="@drawable/reminder"
                 android:tint="@color/onboarding_text_secondary"
                 android:contentDescription="Reminders" />
 
@@ -776,7 +817,7 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/heart_pulse_blue"
+                android:src="@drawable/analytics"
                 android:tint="@color/onboarding_text_secondary"
                 android:contentDescription="Analytics" />
 

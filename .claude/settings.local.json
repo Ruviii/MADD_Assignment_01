@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(cp:*)",
+      "Bash(find:*)",
+      "Bash(./gradlew:*)",
+      "Bash(xmllint:*)",
+      "Bash(set JAVA_HOME=C:Program FilesJavajdk-17)",
+      "Bash(gradlew.bat compileDebugKotlin:*)",
+      "Bash(if [ -d \"app/build\" ])",
+      "Bash(then rm -rf app/build)",
+      "Bash(fi)",
+      "Bash(if [ -d \".gradle\" ])",
+      "Bash(then rm -rf .gradle)",
+      "Bash(.gradlew.bat assembleDebug)",
+      "Bash(./gradlew.bat:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.madd_assignment_01.data.DataManager
+import com.example.madd_assignment_01.utils.NavigationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,7 +31,7 @@ data class Reminder(
 
 enum class ReminderType(val displayName: String, val iconRes: Int) {
     WORKOUT("Workout", R.drawable.workout_icon),
-    WATER("Water", R.drawable.heart_pulse_blue),
+    WATER("Water", R.drawable.home),
     MEAL("Meal", R.drawable.diet_icon)
 }
 
@@ -55,6 +57,7 @@ class ReminderActivity : AppCompatActivity() {
 
     // Data
     private val activeReminders = mutableListOf<Reminder>()
+    private lateinit var dataManager: DataManager
 
     // Dialog
     private var addReminderDialog: AlertDialog? = null
@@ -71,10 +74,11 @@ class ReminderActivity : AppCompatActivity() {
 
         try {
             setContentView(R.layout.activity_reminder)
+            dataManager = DataManager.getInstance(this)
             initializeViews()
             setupClickListeners()
             setupRecyclerView()
-            loadSampleReminders()
+            loadRemindersFromStorage()
 
             Log.d(TAG, "ReminderActivity initialized successfully")
         } catch (e: Exception) {
@@ -94,13 +98,6 @@ class ReminderActivity : AppCompatActivity() {
             remindersRecyclerView = findViewById(R.id.reminders_recyclerview)
             addReminderButton = findViewById(R.id.add_reminder_button)
 
-            // Bottom navigation
-            navHome = findViewById(R.id.nav_home)
-            navWorkouts = findViewById(R.id.nav_workouts)
-            navDiet = findViewById(R.id.nav_diet)
-            navGoals = findViewById(R.id.nav_goals)
-            navReminders = findViewById(R.id.nav_reminders)
-            navAnalytics = findViewById(R.id.nav_analytics)
 
             Log.d(TAG, "All views initialized successfully")
         } catch (e: Exception) {
@@ -127,38 +124,40 @@ class ReminderActivity : AppCompatActivity() {
             showReminderSettings()
         }
 
-        // Bottom navigation
+        // Setup bottom navigation
+        setupBottomNavigation()
+    }
+
+    private fun setupBottomNavigation() {
+        navHome = findViewById(R.id.nav_home)
+        navWorkouts = findViewById(R.id.nav_workouts)
+        navDiet = findViewById(R.id.nav_diet)
+        navGoals = findViewById(R.id.nav_goals)
+        navReminders = findViewById(R.id.nav_reminders)
+        navAnalytics = findViewById(R.id.nav_analytics)
+
         navHome.setOnClickListener {
-            Log.d(TAG, "Home navigation clicked")
-            finish()
+            NavigationUtils.navigateToHome(this)
         }
 
         navWorkouts.setOnClickListener {
-            Log.d(TAG, "Workouts navigation clicked")
-            val intent = Intent(this, WorkoutActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToWorkouts(this)
         }
 
         navDiet.setOnClickListener {
-            Log.d(TAG, "Diet navigation clicked")
-            val intent = Intent(this, DietActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToDiet(this)
         }
 
         navGoals.setOnClickListener {
-            Log.d(TAG, "Goals navigation clicked")
-            val intent = Intent(this, GoalsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToGoals(this)
         }
 
         navReminders.setOnClickListener {
-            Log.d(TAG, "Reminders navigation clicked - already here")
+            // Already on reminders page
         }
 
         navAnalytics.setOnClickListener {
-            Log.d(TAG, "Analytics navigation clicked")
-            val intent = Intent(this, AnalyticsActivity::class.java)
-            startActivity(intent)
+            NavigationUtils.navigateToAnalytics(this)
         }
     }
 
@@ -185,8 +184,23 @@ class ReminderActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadRemindersFromStorage() {
+        val savedReminders = dataManager.getReminders()
+
+        if (savedReminders.isEmpty()) {
+            // Load sample reminders only if no saved data exists
+            loadSampleReminders()
+        } else {
+            activeReminders.clear()
+            activeReminders.addAll(savedReminders)
+            remindersAdapter.notifyDataSetChanged()
+        }
+
+        Log.d(TAG, "Reminders loaded from storage: ${activeReminders.size} reminders")
+    }
+
     private fun loadSampleReminders() {
-        activeReminders.addAll(listOf(
+        val sampleReminders = listOf(
             Reminder(
                 title = "Morning Workout",
                 type = ReminderType.WORKOUT,
@@ -216,7 +230,12 @@ class ReminderActivity : AppCompatActivity() {
                 repeatDays = listOf("Tue", "Thu"),
                 description = "Evening cardio session"
             )
-        ))
+        )
+
+        activeReminders.addAll(sampleReminders)
+
+        // Save sample reminders to storage
+        dataManager.saveReminders(activeReminders)
 
         remindersAdapter.notifyDataSetChanged()
         Log.d(TAG, "Sample reminders loaded: ${activeReminders.size} reminders")
@@ -367,6 +386,7 @@ class ReminderActivity : AppCompatActivity() {
     private fun addReminder(reminder: Reminder) {
         activeReminders.add(reminder)
         activeReminders.sortBy { it.time }
+        dataManager.addReminder(reminder)
         remindersAdapter.notifyDataSetChanged()
     }
 
@@ -375,6 +395,7 @@ class ReminderActivity : AppCompatActivity() {
         if (index >= 0) {
             val updatedReminder = reminder.copy(isEnabled = isEnabled)
             activeReminders[index] = updatedReminder
+            dataManager.toggleReminder(reminder.id, isEnabled)
             remindersAdapter.notifyItemChanged(index)
         }
     }
@@ -385,6 +406,7 @@ class ReminderActivity : AppCompatActivity() {
             .setMessage("Are you sure you want to delete '${reminder.title}'?")
             .setPositiveButton("Delete") { _, _ ->
                 activeReminders.remove(reminder)
+                dataManager.deleteReminder(reminder.id)
                 remindersAdapter.notifyDataSetChanged()
                 Toast.makeText(this, "Reminder deleted", Toast.LENGTH_SHORT).show()
             }

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Reusable Bottom Navigation Component -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_navigation"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    android:background="#2C3E50"
+    android:elevation="8dp"
+    android:paddingVertical="8dp">
+
+    <LinearLayout
+        android:id="@+id/nav_home"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/nav_home_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/home"
+            android:tint="@color/onboarding_text_secondary"
+            android:contentDescription="Home" />
+
+        <TextView
+            android:id="@+id/nav_home_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Home"
+            android:textColor="@color/onboarding_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_workouts"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/nav_workouts_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/workout_icon"
+            android:tint="@color/onboarding_text_secondary"
+            android:contentDescription="Workouts" />
+
+        <TextView
+            android:id="@+id/nav_workouts_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Workouts"
+            android:textColor="@color/onboarding_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_diet"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/nav_diet_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/diet_icon"
+            android:tint="@color/onboarding_text_secondary"
+            android:contentDescription="Diet" />
+
+        <TextView
+            android:id="@+id/nav_diet_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Diet"
+            android:textColor="@color/onboarding_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_goals"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/nav_goals_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/goals_icon"
+            android:tint="@color/onboarding_text_secondary"
+            android:contentDescription="Goals" />
+
+        <TextView
+            android:id="@+id/nav_goals_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Goals"
+            android:textColor="@color/onboarding_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_reminders"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/nav_reminders_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/reminder"
+            android:tint="@color/onboarding_text_secondary"
+            android:contentDescription="Reminders" />
+
+        <TextView
+            android:id="@+id/nav_reminders_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Reminders"
+            android:textColor="@color/onboarding_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_analytics"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/nav_analytics_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/analytics"
+            android:tint="@color/onboarding_text_secondary"
+            android:contentDescription="Analytics" />
+
+        <TextView
+            android:id="@+id/nav_analytics_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Analytics"
+            android:textColor="@color/onboarding_text_secondary"
+            android:textSize="10sp"
+            android:fontFamily="sans-serif" />
+
+    </LinearLayout>
+
+</LinearLayout>

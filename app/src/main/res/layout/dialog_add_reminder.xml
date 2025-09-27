@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentTop="true"
-        android:src="@drawable/onboarding_2"
+        android:src="@drawable/add_reminder"
         android:scaleType="centerCrop" />
 
     <!-- Overlay for better text readability -->
@@ -158,7 +158,7 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/heart_pulse_blue"
+                        android:src="@drawable/water"
                         android:tint="@color/primary_blue" />
 
                     <TextView

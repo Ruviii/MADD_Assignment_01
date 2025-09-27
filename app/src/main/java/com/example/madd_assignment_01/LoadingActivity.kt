@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.madd_assignment_01.data.DataManager
 
 class LoadingActivity : AppCompatActivity() {
 
@@ -85,7 +86,20 @@ class LoadingActivity : AppCompatActivity() {
     }
 
     private fun startMainActivity() {
-        navigateToOnboarding()
+        val dataManager = DataManager.getInstance(this)
+        val userRepository = (application as HealthFitnessApplication).userRepository
+
+        when {
+            userRepository.isLoggedIn() -> {
+                navigateToDashboard()
+            }
+            dataManager.isFirstLaunch() -> {
+                navigateToOnboarding()
+            }
+            else -> {
+                navigateToSignIn()
+            }
+        }
     }
 
     private fun navigateToOnboarding() {
@@ -97,6 +111,32 @@ class LoadingActivity : AppCompatActivity() {
             Log.d(TAG, "Successfully navigated to OnboardingActivity")
         } catch (e: Exception) {
             Log.e(TAG, "Error navigating to onboarding: ${e.message}", e)
+            Toast.makeText(this, "Error starting app", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun navigateToDashboard() {
+        try {
+            val intent = Intent(this, DashboardActivity::class.java)
+            startActivity(intent)
+            finish()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            Log.d(TAG, "Successfully navigated to DashboardActivity")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error navigating to dashboard: ${e.message}", e)
+            Toast.makeText(this, "Error starting app", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun navigateToSignIn() {
+        try {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+            finish()
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            Log.d(TAG, "Successfully navigated to SignInActivity")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error navigating to sign in: ${e.message}", e)
             Toast.makeText(this, "Error starting app", Toast.LENGTH_SHORT).show()
         }
     }

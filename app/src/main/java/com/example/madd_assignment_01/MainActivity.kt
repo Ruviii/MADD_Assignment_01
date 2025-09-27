@@ -47,19 +47,19 @@ class MainActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         startWorkoutButton.setOnClickListener {
             Log.d(TAG, "Start Workout button clicked")
-            val intent = Intent(this, DashboardActivity::class.java)
+            val intent = Intent(this, WorkoutActivity::class.java)
             startActivity(intent)
         }
 
         trackDietButton.setOnClickListener {
             Log.d(TAG, "Track Diet button clicked")
-            val intent = Intent(this, DashboardActivity::class.java)
+            val intent = Intent(this, DietActivity::class.java)
             startActivity(intent)
         }
 
         viewGoalsButton.setOnClickListener {
             Log.d(TAG, "View Goals button clicked")
-            val intent = Intent(this, DashboardActivity::class.java)
+            val intent = Intent(this, GoalsActivity::class.java)
             startActivity(intent)
         }
     }
