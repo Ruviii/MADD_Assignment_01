@@ -325,7 +325,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="Fat"
-                                android:textColor="#8E44AD"
+                                android:textColor="@color/primary_blue"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:fontFamily="sans-serif-medium" />
@@ -335,7 +335,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="60g"
-                                android:textColor="#8E44AD"
+                                android:textColor="@color/primary_blue"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
                                 android:fontFamily="sans-serif-medium" />
@@ -348,7 +348,7 @@
                             android:layout_height="4dp"
                             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                             android:progress="82"
-                            android:progressTint="#8E44AD"
+                            android:progressTint="@color/primary_blue"
                             android:progressBackgroundTint="#3A4A5A" />
 
                     </LinearLayout>
@@ -418,7 +418,7 @@
                                     android:layout_marginTop="4dp"
                                     android:text="Build muscle with our protein-rich meal plan"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:alpha="0.9"
                                     android:fontFamily="sans-serif" />
 
@@ -439,29 +439,29 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:background="@drawable/diet_6"
+                                android:gravity="bottom"
                                 android:orientation="vertical"
-                                android:background="@drawable/diet_2"
-                                android:padding="20dp"
-                                android:gravity="bottom">
+                                android:padding="20dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:fontFamily="sans-serif-medium"
                                     android:text="Weight Loss Diet"
                                     android:textColor="@color/white"
                                     android:textSize="18sp"
-                                    android:textStyle="bold"
-                                    android:fontFamily="sans-serif-medium" />
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
+                                    android:alpha="0.9"
+                                    android:fontFamily="sans-serif"
                                     android:text="Healthy meals to help you reach your goals"
                                     android:textColor="@color/white"
-                                    android:textSize="12sp"
-                                    android:alpha="0.9"
-                                    android:fontFamily="sans-serif" />
+                                    android:textSize="14sp" />
 
                             </LinearLayout>
 
@@ -559,8 +559,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
                     android:orientation="vertical"
-                    android:background="@drawable/diet_3"
+                    android:background="@drawable/diet_1"
                     android:padding="20dp"
+                    android:scaleType="centerCrop"
                     android:gravity="bottom">
 
                     <TextView
@@ -579,7 +580,7 @@
                         android:layout_marginBottom="12dp"
                         android:text="Learn how to balance your diet for optimal results"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:alpha="0.9"
                         android:fontFamily="sans-serif" />
 
@@ -587,10 +588,10 @@
                         android:id="@+id/read_more_button"
                         android:layout_width="wrap_content"
                         android:layout_height="32dp"
-                        android:background="@color/white"
+                        android:background="@drawable/white_rounded_button"
                         android:text="Read More"
-                        android:textColor="@color/onboarding_text_primary"
-                        android:textSize="12sp"
+                        android:textColor="@color/primary_blue"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
                         android:textAllCaps="false"
@@ -682,7 +683,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Home"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -711,7 +712,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Workouts"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -740,7 +741,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Diet"
                 android:textColor="@color/primary_blue"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -769,7 +770,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Goals"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -798,7 +799,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Reminders"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -827,7 +828,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Analytics"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>

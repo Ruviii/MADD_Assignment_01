@@ -150,7 +150,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Weight"
                                 android:textColor="@color/white"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -188,7 +188,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Cardio"
                                 android:textColor="@color/gray_text"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -226,7 +226,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Strength"
                                 android:textColor="@color/gray_text"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -272,7 +272,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Nutrition"
                                 android:textColor="@color/gray_text"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -310,7 +310,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Hydration"
                                 android:textColor="@color/gray_text"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -348,7 +348,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Activity"
                                 android:textColor="@color/gray_text"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>

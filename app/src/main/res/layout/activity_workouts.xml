@@ -480,7 +480,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Filter"
                                 android:textColor="@color/onboarding_text_secondary"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -532,12 +532,12 @@
                     android:id="@+id/start_featured_workout"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:background="@color/primary_blue"
+                    android:background="@drawable/white_rounded_button"
                     android:fontFamily="sans-serif-medium"
                     android:paddingHorizontal="16dp"
                     android:text="Start workout"
                     android:textAllCaps="false"
-                    android:textColor="@color/white"
+                    android:textColor="@color/primary_blue"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -584,7 +584,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Home"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -613,7 +613,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Workouts"
                 android:textColor="@color/primary_blue"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -642,7 +642,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Diet"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -671,7 +671,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Goals"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -700,7 +700,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Reminders"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -729,7 +729,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Analytics"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>

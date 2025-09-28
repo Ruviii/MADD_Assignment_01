@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:text="Activity"
                     android:textColor="@color/onboarding_text_secondary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:fontFamily="sans-serif" />
 
             </LinearLayout>
@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:text="Completed"
             android:textColor="#00C851"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-medium" />
 

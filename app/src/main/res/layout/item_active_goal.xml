@@ -61,7 +61,7 @@
                         android:layout_height="wrap_content"
                         android:text="Weight"
                         android:textColor="@color/onboarding_text_secondary"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:fontFamily="sans-serif" />
 
                 </LinearLayout>
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="Due Oct 30, 2023"
                     android:textColor="@color/onboarding_text_secondary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:fontFamily="sans-serif" />
 
                 <TextView
@@ -171,7 +171,7 @@
                 android:background="@android:color/transparent"
                 android:text="Update"
                 android:textColor="@color/primary_blue"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-medium"
                 android:textAllCaps="false"
@@ -186,7 +186,7 @@
                 android:background="@drawable/button_blue_rounded"
                 android:text="Complete"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-medium"
                 android:textAllCaps="false"

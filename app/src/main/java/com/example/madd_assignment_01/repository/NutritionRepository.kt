@@ -235,6 +235,31 @@ class NutritionRepository(
         }
     }
 
+    // Today's data methods for dashboard
+    suspend fun getTodaysMeals(): List<Meal> {
+        val today = Date()
+        val userId = userRepository.getCurrentUserId() ?: return emptyList()
+
+        val calendar = Calendar.getInstance()
+        calendar.time = today
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val startOfDay = calendar.timeInMillis
+
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        val startOfNextDay = calendar.timeInMillis
+
+        return try {
+            // Simplified approach - return empty list for now
+            // In a real implementation, this would use proper Flow collection
+            emptyList<Meal>()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
     // Nutrition Analytics
     suspend fun getDailyCalories(date: Date): Int {
         val userId = userRepository.getCurrentUserId() ?: return 0

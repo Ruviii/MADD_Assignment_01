@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Train smart today, feel better tomorrow."
+                    android:text="@string/train_smart_today_feel_better_tomorrow"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:alpha="0.9"
@@ -149,7 +149,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="kcal"
                                     android:textColor="@color/onboarding_text_secondary"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:fontFamily="sans-serif" />
 
                             </LinearLayout>
@@ -203,7 +203,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="of 3"
                                     android:textColor="@color/onboarding_text_secondary"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:fontFamily="sans-serif" />
 
                             </LinearLayout>
@@ -257,7 +257,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="of 8"
                                     android:textColor="@color/onboarding_text_secondary"
-                                    android:textSize="12sp"
+                                    android:textSize="14sp"
                                     android:fontFamily="sans-serif" />
 
                             </LinearLayout>
@@ -368,6 +368,7 @@
                 </LinearLayout>
 
                 <ProgressBar
+                    android:id="@+id/weight_loss_progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
                     android:layout_marginBottom="16dp"
@@ -404,6 +405,7 @@
                 </LinearLayout>
 
                 <ProgressBar
+                    android:id="@+id/workout_progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
                     android:layout_marginBottom="16dp"
@@ -440,6 +442,7 @@
                 </LinearLayout>
 
                 <ProgressBar
+                    android:id="@+id/water_intake_progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="6dp"
                     android:layout_marginBottom="16dp"
@@ -493,9 +496,9 @@
                         android:id="@+id/start_workout_button"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
-                        android:background="@color/primary_blue"
+                        android:background="@drawable/white_rounded_button"
                         android:text="Start workout"
-                        android:textColor="@color/white"
+                        android:textColor="@color/primary_blue"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
@@ -570,7 +573,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Track your activity"
                                 android:textColor="@color/onboarding_text_secondary"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -608,7 +611,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Track your nutrition"
                                 android:textColor="@color/onboarding_text_secondary"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -655,7 +658,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Set new reminders"
                                 android:textColor="@color/onboarding_text_secondary"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -693,7 +696,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Track your progress"
                                 android:textColor="@color/onboarding_text_secondary"
-                                android:textSize="12sp"
+                                android:textSize="14sp"
                                 android:fontFamily="sans-serif" />
 
                         </LinearLayout>
@@ -801,7 +804,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Home"
                 android:textColor="@color/primary_blue"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -830,7 +833,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Workouts"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -859,7 +862,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Diet"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -888,7 +891,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Goals"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -917,7 +920,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Reminders"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>
@@ -946,7 +949,7 @@
                 android:layout_marginTop="4dp"
                 android:text="Analytics"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif" />
 
         </LinearLayout>

@@ -255,7 +255,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Fat 26%"
-                            android:textColor="@android:color/holo_purple"
+                            android:textColor="@color/primary_blue"
                             android:textSize="14sp" />
 
                         <ProgressBar
@@ -265,7 +265,7 @@
                             android:layout_height="8dp"
                             android:progress="26"
                             android:max="100"
-                            android:progressTint="@android:color/holo_purple" />
+                            android:progressTint="@color/primary_blue" />
 
                     </LinearLayout>
 
@@ -422,7 +422,7 @@
                             android:layout_height="match_parent"
                             android:text="Upload photos to visualize your progress"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
+                            android:textSize="14sp"
                             android:alpha="0.8"
                             android:layout_marginBottom="12dp" />
 
@@ -431,9 +431,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="32dp"
                             android:text="Upload Photo"
-                            android:textColor="@color/white"
-                            android:background="@color/white"
-                            android:textSize="12sp"
+                            android:textColor="@color/primary_blue"
+                            android:background="@drawable/white_rounded_button"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
+                            android:textAllCaps="false"
                             android:paddingHorizontal="16dp" />
 
                     </LinearLayout>
@@ -539,7 +542,7 @@
                 android:layout_height="match_parent"
                 android:text="Home"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -567,7 +570,7 @@
                 android:layout_height="match_parent"
                 android:text="Workouts"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -595,7 +598,7 @@
                 android:layout_height="match_parent"
                 android:text="Diet"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -623,7 +626,7 @@
                 android:layout_height="match_parent"
                 android:text="Goals"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -651,7 +654,7 @@
                 android:layout_height="match_parent"
                 android:text="Reminders"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -679,7 +682,7 @@
                 android:layout_height="wrap_content"
                 android:text="Analytics"
                 android:textColor="@color/primary_blue"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 

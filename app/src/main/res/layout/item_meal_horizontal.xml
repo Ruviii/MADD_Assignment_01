@@ -48,7 +48,7 @@
                     android:layout_marginTop="2dp"
                     android:text="08:30 AM"
                     android:textColor="@color/onboarding_text_secondary"
-                    android:textSize="12sp"
+                    android:textSize="14sp"
                     android:fontFamily="sans-serif" />
 
             </LinearLayout>

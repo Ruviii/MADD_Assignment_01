@@ -14,7 +14,8 @@
       "Bash(if [ -d \".gradle\" ])",
       "Bash(then rm -rf .gradle)",
       "Bash(.gradlew.bat assembleDebug)",
-      "Bash(./gradlew.bat:*)"
+      "Bash(./gradlew.bat:*)",
+      "Bash(gradlew.bat assembleDebug:*)"
     ],
     "deny": [],
     "ask": []

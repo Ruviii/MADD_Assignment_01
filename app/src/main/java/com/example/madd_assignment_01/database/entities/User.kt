@@ -22,6 +22,10 @@ data class User(
     val targetWeight: Double?, // kg
     val activityLevel: String,
     val profileImageUrl: String?,
+    val phoneNumber: String?,
+    val dateOfBirth: String?, // DD/MM/YYYY format
+    val gender: String?, // Male, Female, Other
+    val fitnessGoal: String?,
     val createdAt: Long,
     val updatedAt: Long,
     val isActive: Boolean
@@ -36,7 +40,11 @@ data class User(
             currentWeight: Double? = null,
             targetWeight: Double? = null,
             activityLevel: String = "Moderate",
-            profileImageUrl: String? = null
+            profileImageUrl: String? = null,
+            phoneNumber: String? = null,
+            dateOfBirth: String? = null,
+            gender: String? = null,
+            fitnessGoal: String? = null
         ): User {
             val currentTime = System.currentTimeMillis()
             return User(
@@ -50,6 +58,10 @@ data class User(
                 targetWeight = targetWeight,
                 activityLevel = activityLevel,
                 profileImageUrl = profileImageUrl,
+                phoneNumber = phoneNumber,
+                dateOfBirth = dateOfBirth,
+                gender = gender,
+                fitnessGoal = fitnessGoal,
                 createdAt = currentTime,
                 updatedAt = currentTime,
                 isActive = true

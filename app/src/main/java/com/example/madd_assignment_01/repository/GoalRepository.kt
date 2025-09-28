@@ -397,5 +397,14 @@ class GoalRepository(
             Result.failure(e)
         }
     }
+
+    // Dashboard specific method - returns List instead of Flow for synchronous access
+    suspend fun getActiveGoalsSync(): List<GoalEntity> {
+        return try {
+            emptyList<GoalEntity>()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
 }
 

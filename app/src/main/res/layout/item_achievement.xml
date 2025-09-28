@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:text="7-Day Streak"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:maxLines="2"

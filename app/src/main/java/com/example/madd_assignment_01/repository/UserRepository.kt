@@ -126,7 +126,12 @@ class UserRepository(
         height: Int?,
         currentWeight: Double?,
         targetWeight: Double?,
-        activityLevel: String
+        activityLevel: String,
+        profileImageUrl: String? = null,
+        phoneNumber: String? = null,
+        dateOfBirth: String? = null,
+        gender: String? = null,
+        fitnessGoal: String? = null
     ): Result<Unit> {
         return try {
             val userId = getCurrentUserId()
@@ -139,6 +144,11 @@ class UserRepository(
                     currentWeight = currentWeight,
                     targetWeight = targetWeight,
                     activityLevel = activityLevel,
+                    profileImageUrl = profileImageUrl,
+                    phoneNumber = phoneNumber,
+                    dateOfBirth = dateOfBirth,
+                    gender = gender,
+                    fitnessGoal = fitnessGoal,
                     timestamp = System.currentTimeMillis()
                 )
 

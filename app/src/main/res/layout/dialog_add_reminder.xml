@@ -136,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:text="Workout"
                         android:textColor="@color/white"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:fontFamily="sans-serif"
                         android:layout_marginTop="4dp" />
 
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:text="Water"
                         android:textColor="@color/gray_text"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:fontFamily="sans-serif"
                         android:layout_marginTop="4dp" />
 
@@ -196,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:text="Meal"
                         android:textColor="@color/gray_text"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:fontFamily="sans-serif"
                         android:layout_marginTop="4dp" />
 

@@ -75,6 +75,8 @@ dependencies {
     // Password hashing
     implementation("org.mindrot:jbcrypt:0.4")
 
+    // Image loading
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

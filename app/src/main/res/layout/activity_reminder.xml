@@ -149,7 +149,7 @@
                 android:layout_height="match_parent"
                 android:text="Home"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -177,7 +177,7 @@
                 android:layout_height="match_parent"
                 android:text="Workouts"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -205,7 +205,7 @@
                 android:layout_height="match_parent"
                 android:text="Diet"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -233,7 +233,7 @@
                 android:layout_height="match_parent"
                 android:text="Goals"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -261,7 +261,7 @@
                 android:layout_height="wrap_content"
                 android:text="Reminders"
                 android:textColor="@color/primary_blue"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 
@@ -289,7 +289,7 @@
                 android:layout_height="match_parent"
                 android:text="Analytics"
                 android:textColor="@color/onboarding_text_secondary"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:fontFamily="sans-serif"
                 android:layout_marginTop="4dp" />
 

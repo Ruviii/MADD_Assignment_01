@@ -3,6 +3,8 @@
     <style name="Base.Theme.MADD_Assignment_01" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.MADD_Assignment_01" parent="Base.Theme.MADD_Assignment_01" />

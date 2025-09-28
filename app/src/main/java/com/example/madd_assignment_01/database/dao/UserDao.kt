@@ -30,7 +30,7 @@ interface UserDao {
     @Query("UPDATE users SET updatedAt = :timestamp WHERE id = :userId")
     fun updateLastActivity(userId: String, timestamp: Long): Int
 
-    @Query("UPDATE users SET name = :name, age = :age, height = :height, currentWeight = :currentWeight, targetWeight = :targetWeight, activityLevel = :activityLevel, updatedAt = :timestamp WHERE id = :userId")
+    @Query("UPDATE users SET name = :name, age = :age, height = :height, currentWeight = :currentWeight, targetWeight = :targetWeight, activityLevel = :activityLevel, profileImageUrl = :profileImageUrl, phoneNumber = :phoneNumber, dateOfBirth = :dateOfBirth, gender = :gender, fitnessGoal = :fitnessGoal, updatedAt = :timestamp WHERE id = :userId")
     fun updateUserProfile(
         userId: String,
         name: String,
@@ -39,6 +39,11 @@ interface UserDao {
         currentWeight: Double?,
         targetWeight: Double?,
         activityLevel: String,
+        profileImageUrl: String?,
+        phoneNumber: String?,
+        dateOfBirth: String?,
+        gender: String?,
+        fitnessGoal: String?,
         timestamp: Long
     ): Int
 

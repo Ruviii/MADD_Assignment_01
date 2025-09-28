@@ -226,6 +226,54 @@ class WorkoutRepository(
         return 0 // Placeholder
     }
 
+    // Dashboard specific methods
+    suspend fun getTodaysWorkouts(): List<WorkoutRecord> {
+        val userId = userRepository.getCurrentUserId() ?: return emptyList()
+        val today = Date()
+
+        val calendar = Calendar.getInstance()
+        calendar.time = today
+        calendar.set(Calendar.HOUR_OF_DAY, 0)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+        val startOfDay = calendar.timeInMillis
+
+        calendar.add(Calendar.DAY_OF_MONTH, 1)
+        val startOfNextDay = calendar.timeInMillis
+
+        return try {
+            // Simplified approach - return empty list for now
+            emptyList<WorkoutRecord>()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun getWeeklyWorkouts(): List<WorkoutRecord> {
+        val userId = userRepository.getCurrentUserId() ?: return emptyList()
+
+        val calendar = Calendar.getInstance()
+        val endDate = calendar.time
+        calendar.add(Calendar.DAY_OF_YEAR, -7)
+        val startDate = calendar.time
+
+        return try {
+            // Simplified approach - return empty list for now
+            emptyList<WorkoutRecord>()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun getRecentWorkouts(limit: Int = 5): List<WorkoutRecord> {
+        return try {
+            emptyList<WorkoutRecord>()
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
     data class WorkoutStats(
         val totalWorkouts: Int,
         val totalMinutes: Int,

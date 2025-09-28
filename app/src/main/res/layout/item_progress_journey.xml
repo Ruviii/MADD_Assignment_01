@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:text="Your journey started strong with consistent workouts"
                 android:textColor="@color/gray_text"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:maxLines="2"
                 android:ellipsize="end" />
 

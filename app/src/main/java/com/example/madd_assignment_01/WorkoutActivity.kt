@@ -34,7 +34,7 @@ enum class WorkoutType(val displayName: String, val color: String) {
     STRENGTH("Strength", "#4ECDC4"),
     FLEXIBILITY("Flexibility", "#45B7D1"),
     HIIT("HIIT", "#96CEB4"),
-    ALL("All", "#6C5CE7")
+    ALL("All", "#1E88E5")
 }
 
 enum class WorkoutFilter {

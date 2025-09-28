@@ -66,7 +66,7 @@ enum class GoalCategory(
     STRENGTH("Strength", "#45B7D1", "reps"),
     NUTRITION("Nutrition", "#96CEB4", "kcal"),
     HYDRATION("Hydration", "#00C851", "L"),
-    ACTIVITY("Activity", "#8E44AD", "times")
+    ACTIVITY("Activity", "#1E88E5", "times")
 }
 
 class GoalsActivity : AppCompatActivity() {
